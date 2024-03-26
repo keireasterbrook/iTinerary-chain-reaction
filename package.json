@@ -9,13 +9,17 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@react-native-firebase/app": "^19.0.1",
+    "@expo/metro-runtime": "~3.1.3",
+    "@firebase/firestore": "^4.5.0",
+    "@react-native-firebase/app": "^19.1.0",
     "@react-native-firebase/auth": "^19.0.1",
     "expo": "~50.0.14",
     "expo-status-bar": "~1.11.1",
     "firebase": "^10.9.0",
     "react": "18.2.0",
-    "react-native": "0.73.6"
+    "react-dom": "18.2.0",
+    "react-native": "0.73.6",
+    "react-native-web": "~0.19.6"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

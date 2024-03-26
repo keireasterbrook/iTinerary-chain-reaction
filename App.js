@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, ScrollView } from 'react-native';
 import { initializeApp } from '@firebase/app';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from '@firebase/auth';
-
+import { getFirestore, doc, getDocs, collection } from "@firebase/firestore"
 
 const firebaseConfig = {
   apiKey: "AIzaSyB7bfrVbhW5SQunUTrorpqvDyV_sY45SKY",
@@ -16,7 +16,25 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
+const db = getFirestore(app)
+console.log(db, "<<<<<<db");
+
+//getting all documents
+const colRef = collection(db, 'Activities')
+async function dataFetchAttempt(){
+  const snapshot = await getDocs(colRef);
+  snapshot.forEach(doc => {
+    console.log(doc.id, '=>', doc.data());
+  });
+}
+
+dataFetchAttempt()
+
+
+
 const AuthScreen = ({ email, setEmail, password, setPassword, isLogin, setIsLogin, handleAuthentication }) => {
+  console.log("hello from authscreen");
+  
   return (
     <View style={styles.authContainer}>
        <Text style={styles.title}>{isLogin ? 'Sign In' : 'Sign Up'}</Text>
@@ -50,6 +68,8 @@ const AuthScreen = ({ email, setEmail, password, setPassword, isLogin, setIsLogi
 
 
 const AuthenticatedScreen = ({ user, handleAuthentication }) => {
+  console.log("hello from Authenticated screen");
+
   return (
     <View style={styles.authContainer}>
       <Text style={styles.title}>Welcome</Text>
@@ -58,6 +78,8 @@ const AuthenticatedScreen = ({ user, handleAuthentication }) => {
     </View>
   );
 };
+
+
 export default App = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -65,11 +87,16 @@ export default App = () => {
   const [isLogin, setIsLogin] = useState(true);
 
   const auth = getAuth(app);
+  
+
+
+  console.log("hello from the app");
+ 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
     });
-
+  
     return () => unsubscribe();
   }, [auth]);
 
@@ -117,6 +144,11 @@ export default App = () => {
     </ScrollView>
   );
 }
+
+
+
+
+
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
