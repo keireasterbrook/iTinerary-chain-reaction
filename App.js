@@ -5,6 +5,14 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, on
 import { getFirestore, doc, getDocs, collection } from "@firebase/firestore"
 import AuthScreen from './src/Components/AuthScreen';
 import AuthenticatedScreen from './src/Components/AuthenticatedScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import ChatBot from './src/Screens/ChatBot'
+import {useNavigation} from 'expo-router'
+
+const navigation = useNavigation()
+const Stack = createNativeStackNavigator();
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyB7bfrVbhW5SQunUTrorpqvDyV_sY45SKY",
@@ -72,12 +80,15 @@ export default App = () => {
       };
 
   return (
+
+    <NavigationContainer>
+       
     
     <ScrollView contentContainerStyle={styles.container}>
 
       {user ? (
         // Show user's email if user is authenticated
-        <AuthenticatedScreen user={user} handleAuthentication={handleAuthentication} />
+        <AuthenticatedScreen user={user} handleAuthentication={handleAuthentication} navigation={navigation}/>
       ) : (
         
         // Show sign-in or sign-up form if user is not authenticated
@@ -92,12 +103,16 @@ export default App = () => {
         />
       )}
     </ScrollView>
+
+    <Stack.Navigator >
+          <Stack.Screen 
+          name='ChatBot'
+          options={{headerShown: false}}
+          component={ChatBot}/>
+    </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-
-
-
 
 export const styles = StyleSheet.create({
   container: {
