@@ -2,34 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, ScrollView } from 'react-native';
 import { initializeApp } from '@firebase/app';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from '@firebase/auth';
-import { getFirestore, doc, getDocs, collection } from "@firebase/firestore"
+import { getFirestore, getDocs, collection } from "@firebase/firestore"
 import AuthScreen from './src/Components/AuthScreen';
 import AuthenticatedScreen from './src/Components/AuthenticatedScreen';
+import CalendarWeek from './src/activites/CalendarWeek';
+import firebaseConfig from './src/firebase/config'
+import dataFetchAttempt from './src/utils/dataFetch';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyB7bfrVbhW5SQunUTrorpqvDyV_sY45SKY",
-  authDomain: "itinerary-chain-reaction.firebaseapp.com",
-  projectId: "itinerary-chain-reaction",
-  storageBucket: "itinerary-chain-reaction.appspot.com",
-  messagingSenderId: "176435877300",
-  appId: "1:176435877300:web:6820350fd359e32c794ee1",
-  measurementId: "G-4EM8V1K06L"
-};
+
 
 const app = initializeApp(firebaseConfig);
 
-const db = getFirestore(app)
 
-//getting all documents
-const colRef = collection(db, 'Activities')
-async function dataFetchAttempt(){
-  const snapshot = await getDocs(colRef);
-  snapshot.forEach(doc => {
-    console.log(doc.id, '=>', doc.data());
-  });
-}
-
-dataFetchAttempt()
 
 export default App = () => {
   const [email, setEmail] = useState('');
@@ -44,6 +28,7 @@ export default App = () => {
       setUser(user);
     });
   
+
     return () => unsubscribe();
   }, [auth]);
 
@@ -71,31 +56,30 @@ export default App = () => {
         }
       };
 
-  return (
-    
-    <ScrollView contentContainerStyle={styles.container}>
 
-      {user ? (
-        // Show user's email if user is authenticated
-        <AuthenticatedScreen user={user} handleAuthentication={handleAuthentication} />
-      ) : (
-        
-        // Show sign-in or sign-up form if user is not authenticated
-        <AuthScreen
-          email={email}
-          setEmail={setEmail}
-          password={password}
-          setPassword={setPassword}
-          isLogin={isLogin}
-          setIsLogin={setIsLogin}
-          handleAuthentication={handleAuthentication}
-        />
-      )}
-    </ScrollView>
+  return (
+    <CalendarWeek/>
+    
+    // <ScrollView contentContainerStyle={styles.container}>
+
+    //   {user ? (
+    //     // Show user's email if user is authenticated
+    //     <AuthenticatedScreen user={user} handleAuthentication={handleAuthentication} />
+    //   ) : (
+    //     // Show sign-in or sign-up form if user is not authenticated
+    //     <AuthScreen
+    //       email={email}
+    //       setEmail={setEmail}
+    //       password={password}
+    //       setPassword={setPassword}
+    //       isLogin={isLogin}
+    //       setIsLogin={setIsLogin}
+    //       handleAuthentication={handleAuthentication}
+    //     />
+    //   )}
+    // </ScrollView>
   );
 }
-
-
 
 
 
