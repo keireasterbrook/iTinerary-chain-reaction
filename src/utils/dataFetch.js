@@ -15,7 +15,10 @@ async function dataFetch() {
   const snapshot = await getDocs(colRef);
   snapshot.forEach(doc => {
     // console.log(doc.id, '=>', doc.data())
-    activitiesData.push(doc.data())
+    const activityObject = doc.data()
+    activityObject.id = doc.id
+    activitiesData.push(activityObject)
+  
   });
   return activitiesData
 }
