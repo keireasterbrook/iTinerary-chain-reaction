@@ -9,8 +9,8 @@ import ChatBot from './src/Screens/ChatBot'
 import Home from './src/Screens/Home';
 import ActivitiesList from './src/Screens/ActivitiesList';
 import ItineraryCalendar from './src/Screens/Itinerary-calendar';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-// const navigation = useNavigation()
 const Stack = createNativeStackNavigator();
 
 
@@ -80,9 +80,6 @@ export default App = () => {
       };
 
   return (
-
-
-    
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Home' >
       <Stack.Screen name='Home' children={(props) => <Home {...props}
@@ -105,6 +102,73 @@ export default App = () => {
   
   );
 }
+
+const Tab = createBottomTabNavigator();
+const screenOptions = {
+  tabBarShowLabel: false,
+  headerShown: false,
+  tabBayStyle: {
+    positon: "absolute",
+    bottom: 0,
+    right: 0,
+    left: 0,
+    elevation: 0,
+    height: 60,
+    background: "#fff",
+  },
+};
+const NavBar = () => {
+  return (
+      <Tab.Navigator screenOptions={screenOptions}>
+        <Tab.Screen
+          name="Home"
+          component={Home}
+          options={{
+            tabBarIcon: ({ focused }) => {
+              return (
+                <View
+                  style={{ alignItems: "center", justifyContent: "center" }}
+                >
+                  <Text style={{ fontSize: 12, color: "#16247d" }}>HOME</Text>
+                </View>
+              );
+            },
+          }}
+        ></Tab.Screen>
+        <Tab.Screen
+          name="ChatBot"
+          component={ChatBot}
+          options={{
+            tabBarIcon: ({ focused }) => {
+              return (
+                <View
+                  style={{ alignItems: "center", justifyContent: "center" }}
+                >
+                  <Text style={{ fontSize: 12, color: "#16247d" }}>ADD TRIP</Text>
+                </View>
+              );
+            },
+          }}
+        ></Tab.Screen>
+        <Tab.Screen
+          name="Itinerary-Calendar"
+          component={ItineraryCalendar}
+          options={{
+            tabBarIcon: ({ focused }) => {
+              return (
+                <View
+                  style={{ alignItems: "center", justifyContent: "center" }}
+                >
+                  <Text style={{ fontSize: 12, color: "#16247d" }}>SETTINGS</Text>
+                </View>
+              );
+            },
+          }}
+        ></Tab.Screen>
+      </Tab.Navigator>
+  );
+};
+
 
 export const styles = StyleSheet.create({
   container: {

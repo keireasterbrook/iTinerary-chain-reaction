@@ -1,5 +1,6 @@
 import { View, Text, TextInput, Button } from "react-native";
 import { styles } from "../../App";
+import NavBar from "./NavBar";
 
 
 const AuthScreen = ({ email, setEmail, password, setPassword, isLogin, setIsLogin, handleAuthentication }) => {
