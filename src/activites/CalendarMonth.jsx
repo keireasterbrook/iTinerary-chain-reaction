@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { View, SafeAreaView } from 'react-native'
 import { Calendar } from 'react-native-calendars';
-import { TimelineCalendar } from '@howljs/calendar-kit';
 
 
 function CalendarMonth() {
