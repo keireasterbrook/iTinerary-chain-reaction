@@ -3,14 +3,14 @@ import { View, Text, TextInput, Button, StyleSheet, ScrollView } from 'react-nat
 import { initializeApp } from '@firebase/app';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from '@firebase/auth';
 import { getFirestore, doc, getDocs, collection } from "@firebase/firestore"
-import AuthScreen from './src/Components/AuthScreen';
-import AuthenticatedScreen from './src/Components/AuthenticatedScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ChatBot from './src/Screens/ChatBot'
-import {useNavigation} from 'expo-router'
+import Home from './src/Screens/Home';
+import ActivitiesList from './src/Screens/ActivitiesList';
+import ItineraryCalendar from './src/Screens/Itinerary-calendar';
 
-const navigation = useNavigation()
+// const navigation = useNavigation()
 const Stack = createNativeStackNavigator();
 
 
@@ -81,36 +81,28 @@ export default App = () => {
 
   return (
 
-    <NavigationContainer>
-       
+
     
-    <ScrollView contentContainerStyle={styles.container}>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='Home' >
+      <Stack.Screen name='Home' children={(props) => <Home {...props}
+      user={user} 
+      handleAuthentication={handleAuthentication}
+      email={email}
+      setEmail={setEmail}
+      password={password}
+      setPassword={setPassword}
+      isLogin={isLogin}
+      setIsLogin={setIsLogin}
 
-      {user ? (
-        // Show user's email if user is authenticated
-        <AuthenticatedScreen user={user} handleAuthentication={handleAuthentication} navigation={navigation}/>
-      ) : (
-        
-        // Show sign-in or sign-up form if user is not authenticated
-        <AuthScreen
-          email={email}
-          setEmail={setEmail}
-          password={password}
-          setPassword={setPassword}
-          isLogin={isLogin}
-          setIsLogin={setIsLogin}
-          handleAuthentication={handleAuthentication}
-        />
-      )}
-    </ScrollView>
-
-    <Stack.Navigator >
-          <Stack.Screen 
-          name='ChatBot'
-          options={{headerShown: false}}
-          component={ChatBot}/>
-    </Stack.Navigator>
+      />} />
+      <Stack.Screen name='ChatBot' component={ChatBot}/>
+      <Stack.Screen name='ActivitiesList' component={ActivitiesList}/>
+      <Stack.Screen name='Itinerary-calendar' component={ItineraryCalendar}/>
+      </Stack.Navigator>
     </NavigationContainer>
+
+  
   );
 }
 

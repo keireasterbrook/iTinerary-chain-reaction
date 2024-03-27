@@ -1,27 +1,23 @@
 import { View, Text, Button } from "react-native";
 import { styles } from "../../App";
-import {Link, useNavigation, useRouter} from 'expo-router'
+import { useNavigation } from '@react-navigation/native'
 
 
-const AuthenticatedScreen = ({ user, handleAuthentication, navigation }) => {
-    console.log("hello from Authenticated screen");
-    
-  
+
+const AuthenticatedScreen = ({ user, handleAuthentication }) => {
+    const navigation = useNavigation()
+    console.log(navigation, 'navigation')
+
     return (
-
+      
 
       <View style={styles.authContainer}>
         <Text style={styles.title}>Welcome</Text>
-        <Text style={styles.emailText}>{user.email}</Text>
-        <Button title="Start Planning!"
-      onPress={() =>
-        navigation.navigate('ChatBot')
-      }
-    />
+        <Text style={styles.emailText}></Text>
+        <Button title='Start your journey planning!' onPress={() => navigation.navigate('ChatBot')}></Button>
         <Button title="Logout" onPress={handleAuthentication} color="#e74c3c" />
       </View>
       
- 
     );
   };
 
