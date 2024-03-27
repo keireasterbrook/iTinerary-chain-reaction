@@ -8,14 +8,34 @@ enableExperimentalWebImplementation(true);
 
 
 const CalendarWeek = () => {
+  const generateRandomStartDate = () => {
+    const random = getRandomDate1(new Date('2024-03-28T01:57:45.271Z'), new Date('2024-03-28T06:57:45.271Z'));
+    return random.toISOString();
+  }
+  function getRandomDate1(from, to) {
+    const fromTime = from.getTime();
+    const toTime = to.getTime();
+    return new Date(fromTime + Math.random() * (toTime - fromTime));
+  }
+  
+  const generateRandomEndDate = () => {
+    const random = getRandomDate(new Date('2024-03-29T01:57:45.271Z'), new Date('2024-03-29T06:57:45.271Z'));
+    return random.toISOString();
+  }
+  function getRandomDate(from, to) {
+    const fromTime = from.getTime();
+    const toTime = to.getTime();
+    return new Date(fromTime + Math.random() * (toTime - fromTime));
+  }
+
 
   const exampleEvents = [
     {
-      id: '1',
-      title: 'Louvre tour',
-      start: new Date('2024-03-28T09:00:05.313Z'),
-      end: new Date('2024-03-28T12:00:05.313Z'),
       color: '#A3C7D6',
+      title: 'Louvre tour',
+      start: generateRandomStartDate(),
+      end: generateRandomEndDate(),
+      id: 'fhfhgfgh',
     },
     {
       id: '45678',
@@ -30,10 +50,15 @@ const CalendarWeek = () => {
 
 const events = []
 
-
   dataFetch().then((activities) => {
+    activities.forEach((activity) => {
+      console.log(generateRandomStartDate(), "rando start from for each");
+      console.log(generateRandomEndDate(), "rando end from for each");
+      exampleEvents.push({id: activity.id, title: activity.place_name, start: generateRandomStartDate(), end: generateRandomEndDate(), color: '#B1AFFF' })
+    })
     // exampleEvents = activities
   })
+  console.log(events, "<<<<events");
 
   return (
     <SafeAreaView style={styles.container}>
