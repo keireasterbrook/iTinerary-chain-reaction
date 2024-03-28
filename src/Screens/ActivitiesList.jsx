@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import axios, { all } from "axios";
 import { useEffect, useState } from "react";
 import ActivityCard from "../Components/ActivityCard";
+import { dataPush } from "../utils/dataFetch";
 
 const searchBox_API_KEY =
   "?access_token=sk.eyJ1IjoiYWh1c3M5OCIsImEiOiJjbHU2d3oyaGIyNjVrMmlzM3Q1d3ZkMDAyIn0.Z8t1arJJokTQXfGF0-KJzw&language=en&limit=5";
@@ -16,7 +17,6 @@ const ActivitiesList = ({ user, handleAuthentication }) => {
   const navigation = useNavigation();
   const [data, setData] = useState([]);
   const [selectedActivities, setSelectedActivities] = useState([])
-  const [likedStates, setLikedStates] = useState({})
 
   useEffect(() => {
     searchBoxApi.get(`category/museum${searchBox_API_KEY}`).then((response) => {
@@ -24,40 +24,32 @@ const ActivitiesList = ({ user, handleAuthentication }) => {
     });
   }, []);
 
-    const handlePressFavourite = (place) => {
-      setLikedStates((prevState) => ({
-        ...prevState,
-        [place.properties.mapbox_id]: !prevState[place.properties.mapbox_id], // Toggle the liked state for this activity
-      }));
-  
-      // Update selectedActivities based on the liked state
-      if (!likedStates[place.properties.mapbox_id]) {
-        setSelectedActivities([...selectedActivities, place]);
-        console.log(selectedActivities, "activities with new one added")
-      } else {
-        setSelectedActivities(selectedActivities.filter((activity) => activity.properties.mapbox_id !== place.properties.mapbox_id))
-        console.log(selectedActivities, "activities with one removed");
-      }
-    }
+const goToCalendar = () => {
+  return dataPush(selectedActivities)
+  .then(() => {
+    navigation.navigate("Itinerary-calendar")
+  })
+}
+
 
    return (
      <View style={styles.authContainer}>
+      <Text>Here are your reccomendations! Select all the activities you'd like to do on your trip:</Text>
          {data && data.length>0 ? (
              <View>
              {data.map((place, index) => (
                  <View key ={index}>
-                    <ActivityCard place={place}></ActivityCard>
-                    <Button title="❤️" onPress={() =>handlePressFavourite(place)}></Button>
+                    <ActivityCard place={place} selectedActivities={selectedActivities} setSelectedActivities={setSelectedActivities}></ActivityCard>
+      
                  </View>
              ))}
            </View>
              ) : (
                <Text>Loading...</Text>
              )}
-      
        <Button
-         title="I am happy with these choices"
-         onPress={() => navigation.navigate("Itinerary-calendar")}
+         title="Go to calendar"
+         onPress={() => goToCalendar()}
        ></Button>
      </View>
    );
