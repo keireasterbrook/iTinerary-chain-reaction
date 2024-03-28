@@ -5,7 +5,7 @@ import AuthenticatedScreen from '../Components/AuthenticatedScreen';
 const Home = ({user, handleAuthentication, email, setEmail, password, setPassword, isLogin, setIsLogin}) => {
 
     return(
-        <ScrollView>
+        <>
    {user ? (
         // Show user's email if user is authenticated
         <AuthenticatedScreen user={user} handleAuthentication={handleAuthentication} 
@@ -23,7 +23,7 @@ const Home = ({user, handleAuthentication, email, setEmail, password, setPasswor
           handleAuthentication={handleAuthentication}
         />
       )}
-      </ScrollView>
+      </>
     )
 }
 
