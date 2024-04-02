@@ -27,7 +27,7 @@ const ActivitiesList = ({ user, handleAuthentication }) => {
 const goToCalendar = () => {
   return dataPush(selectedActivities)
   .then(() => {
-    navigation.navigate("Itinerary-calendar")
+    navigation.navigate("CalendarWeek")
   })
 }
 
