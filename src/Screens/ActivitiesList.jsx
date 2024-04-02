@@ -13,7 +13,7 @@ const ActivitiesList = ({ user, handleAuthentication }) => {
       <View style={styles.authContainer}>
         <Text style={styles.title}>Here are your items</Text>
         <Text style={styles.emailText}></Text>
-        <Button title='I am happy with these choices' onPress={() => navigation.navigate('Itinerary-calendar')}></Button>
+        <Button title='I am happy with these choices' onPress={() => navigation.navigate('CalendarWeek')}></Button>
       </View>
       
     );

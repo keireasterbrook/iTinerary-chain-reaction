@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View, Button
 } from "react-native";
 import { enableExperimentalWebImplementation } from "react-native-gesture-handler";
 import dataFetch from "../utils/dataFetch";
@@ -60,6 +60,7 @@ const CalendarWeek = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Button title='Add An Event' />
       <TimelineCalendar
         viewMode="week"
         events={events}
