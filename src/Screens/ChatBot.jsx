@@ -7,9 +7,9 @@ const ChatBot = () => {
     const navigation = useNavigation()
 
     return (
-        <View style={styles.authContainer}>
-        <Text style={styles.title}>Hi I am ChatBot</Text>
-        <Text style={styles.emailText}></Text>
+        <View>
+        <Text>Hi I am ChatBot</Text>
+        <Text></Text>
         <Button title='to Activities List' onPress={() => navigation.navigate('ActivitiesList')}></Button>
 
       </View>

@@ -33,7 +33,7 @@ const goToCalendar = () => {
 
 
    return (
-     <View style={styles.authContainer}>
+     <View>
       <Text>Here are your reccomendations! Select all the activities you'd like to do on your trip:</Text>
          {data && data.length>0 ? (
              <View>

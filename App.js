@@ -85,15 +85,13 @@ export default App = () => {
   );
 }
 
-
-
 export const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#F0F0F0',
   },
   authContainer: {
     width: '80%',
@@ -120,7 +118,7 @@ export const styles = StyleSheet.create({
     marginBottom: 16,
   },
   toggleText: {
-    color: '#3498db',
+    color: '#3498DB',
     textAlign: 'center',
   },
   bottomContainer: {
@@ -132,3 +130,5 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
   },
 });
+
+
