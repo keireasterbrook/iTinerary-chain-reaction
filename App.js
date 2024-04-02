@@ -11,7 +11,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ChatBot from './src/Screens/ChatBot'
 import Home from './src/Screens/Home';
 import ActivitiesList from './src/Screens/ActivitiesList';
-import ItineraryCalendar from './src/Screens/Itinerary-calendar';
 
 
 const Stack = createNativeStackNavigator();
@@ -81,7 +80,6 @@ export default App = () => {
       setHolidayObj={setHolidayObj}/>}/>
       <Stack.Screen name='ActivitiesList' children={(props) => <ActivitiesList {...props}
       holidayObj={holidayObj}/>}/>
-      <Stack.Screen name='Itinerary-calendar' component={ItineraryCalendar}/>
       <Stack.Screen name='CalendarWeek' component={CalendarWeek}/>
       </Stack.Navigator>
     </NavigationContainer>
