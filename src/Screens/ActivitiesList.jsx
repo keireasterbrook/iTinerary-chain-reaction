@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import axios, { all } from "axios";
 import { useEffect, useState } from "react";
 import ActivityCard from "../Components/ActivityCard";
-import { dataPush } from "../utils/dataFetch";
+import { dataPush, dataFetch } from "../utils/dataFetch";
 
 const searchBox_API_KEY =
   "?access_token=sk.eyJ1IjoiYWh1c3M5OCIsImEiOiJjbHU2d3oyaGIyNjVrMmlzM3Q1d3ZkMDAyIn0.Z8t1arJJokTQXfGF0-KJzw&language=en&limit=5";
@@ -27,6 +27,7 @@ const ActivitiesList = ({ user, handleAuthentication }) => {
 const goToCalendar = () => {
   return dataPush(selectedActivities)
   .then(() => {
+    console.log("hello from then block");
     navigation.navigate("CalendarWeek")
   })
 }
@@ -40,7 +41,6 @@ const goToCalendar = () => {
              {data.map((place, index) => (
                  <View key ={index}>
                     <ActivityCard place={place} selectedActivities={selectedActivities} setSelectedActivities={setSelectedActivities}></ActivityCard>
-      
                  </View>
              ))}
            </View>
@@ -54,8 +54,5 @@ const goToCalendar = () => {
      </View>
    );
 }
-
- 
-
 
 export default ActivitiesList;
