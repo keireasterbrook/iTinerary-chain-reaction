@@ -1,10 +1,11 @@
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity } from "react-native";
 import { styles } from "../../App";
 import { useNavigation } from "@react-navigation/native";
 import axios, { all } from "axios";
 import { useEffect, useState } from "react";
 import ActivityCard from "../Components/ActivityCard";
 import { dataPush, dataFetch } from "../utils/dataFetch";
+import colours from "../styles/colours";
 
 const searchBox_API_KEY =
 	'?access_token=sk.eyJ1IjoiYWh1c3M5OCIsImEiOiJjbHU2d3oyaGIyNjVrMmlzM3Q1d3ZkMDAyIn0.Z8t1arJJokTQXfGF0-KJzw&language=en&limit=5';
@@ -64,10 +65,16 @@ const goToCalendar = () => {
 
 
    return (
-     <View>
-      <Text>Here are your reccomendations! Select all the activities you'd like to do on your trip:</Text>
+	<View style={{flex:1}}>
+		<ImageBackground
+        source={require("../styles/images/gradient1.jpg")}
+        style={{ flex: 1, width: "100%", height: "100%" }}
+      >
+     <View style={activityListStyle.list}>
+      <Text style={{fontSize: 24, textAlign: 'center', padding: 20}}> Your personalised recommendations are ready!</Text>
+	  <Text style={{fontSize: 20}}>Select all the activities you'd like to do on your trip:</Text>
          {data && data.length>0 ? (
-             <View>
+             <View style={{padding: 20}}>
              {data.map((place, index) => (
                  <View key ={index}>
                     <ActivityCard place={place} selectedActivities={selectedActivities} setSelectedActivities={setSelectedActivities}></ActivityCard>
@@ -78,14 +85,36 @@ const goToCalendar = () => {
              ) : (
                <Text>Loading...</Text>
              )}
-       <Button
-         title="Go to calendar"
-         onPress={() => goToCalendar()}
-       ></Button>
+
+<Text style={{fontSize: 20, padding: 20}}>Happy with your selections?</Text>
+<TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => goToCalendar()}
+          >
+            <View style={activityListStyle.calendarbtn}>
+              <Text style={{ fontWeight: "bold" }}>View my calendar</Text>
+            </View>
+          </TouchableOpacity>
      </View>
+	   </ImageBackground>
+	 </View>
    );
 }
 
+const activityListStyle = StyleSheet.create({
+list: {
+	padding: 20,
+	alignItems: 'center',
+	backgroundColor: colours.lightpurple,
+	opacity: 0.7
+},
+calendarbtn: {
+	backgroundColor: colours.white,
+	padding: 10,
+	borderRadius: 7,
+	opacity: 0.7
+}
+})
  
 
 
