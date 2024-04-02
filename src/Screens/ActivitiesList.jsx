@@ -20,7 +20,7 @@ const ActivitiesList = ({ holidayObj }) => {
 	const [foodData, setFoodData] = useState([]);
 	const [dayData, setDayData] = useState([]);
 	const [nightData, setNightData] = useState([]);
-
+	const {destination,city,holidayLength,food,dayActivity,nightActivity} = holidayObj;
 	useEffect(() => {
 		setFoodData(holidayObj.food);
 		setDayData(holidayObj.dayActivity);
@@ -28,6 +28,111 @@ const ActivitiesList = ({ holidayObj }) => {
 		console.log(holidayObj, 'im in the activity lisst!!');
 	}, []);
 
+	const categories = {
+		food: [
+			{
+				name: 'Mexican',
+				query: 'Mexican_restaurant'
+			},
+			{
+				name: 'Cafe',
+				query: 'Cafe'
+			},
+			{
+				name: 'Italian',
+				query: 'italian_restaurant'
+			},
+			{
+				name: 'American',
+				query: 'american_restaurant'
+			},
+			{
+				name: 'Seafood',
+				query: 'seafood_restaurant'
+			},
+			{
+				name: 'Bakery',
+				query: 'Bakery'
+			},
+			{
+				name: 'Coffee',
+				query: 'Coffee'
+			},
+			{
+				name: 'Dessert Shop',
+				query: 'dessert_shop'
+			},
+			{
+				name: 'Pizza',
+				query: 'pizza_restaurant'
+			},
+			{
+				name: 'Ice Cream',
+				query: 'ice_cream'
+			},
+			{
+				name: 'Burger',
+				query: 'burger_restaurant'
+			},
+			{
+				name: 'Steakhouse',
+				query: 'Steakhouse'
+			},
+			{
+				name: 'Gastropub',
+				query: 'Gastropub'
+			}
+		],
+		daytimeActivities: [
+			{
+				name: 'Shopping',
+				query: 'shopping'
+			},
+			{
+				name: 'Outdoor Activities',
+				query: 'outdoors'
+			},
+			{
+				name: 'Tourist Attractions',
+				query: 'tourist_attraction'
+			},
+			{
+				name: 'Art & History',
+				query: 'museum'
+			},
+			{
+				name: 'Sports',
+				query: 'sports'
+			}
+		],
+		nighttimeActivities: [
+			{
+				name: 'Party',
+				query: 'nightclub'
+			},
+			{
+				name: 'Pub',
+				query: 'pub'
+			},
+			{
+				name: 'Bar',
+				query: 'bar'
+			},
+			{
+				name: 'Live Entertainment',
+				query: 'entertainment'
+			}
+		]
+	};
+	const convertToQuery = (category, option) => {
+		const lowerOption = option.toLowerCase();
+		const selectedCategory = categories[category];
+		const selectedQuery = selectedCategory.find(item => {
+			return lowerOption.includes(item.name.toLowerCase());
+		});
+	
+		return selectedQuery ? selectedQuery.query : '';
+	};
 	console.log(
 		foodData,
 		dayData,
@@ -35,24 +140,73 @@ const ActivitiesList = ({ holidayObj }) => {
 		'the data of all the stuff we need to list '
 	);
 
-	// useEffect(() => {
-	// 	foodData.map((restaraunt, index) => {
-	// 		searchBoxApi
-	// 			.get(`category/${museum}${searchBox_API_KEY}`)
-	// 			.then((respose) => {
-	// 				setData(...data, respose.data.features);
-	// 			});
-	// 	});
-	// }, []);
-
-	console.log(data);
 	useEffect(() => {
-		searchBoxApi
-			.get(`category/museum${searchBox_API_KEY}`)
-			.then((response) => {
-				setData(response.data.features);
-			});
-	}, []);
+		if (city && destination) {
+			axios
+				.get(
+					`https://api.api-ninjas.com/v1/geocoding?city=${city}`
+				)
+				.then((response) => {
+					console.log(response.data);
+					console.log(city);
+					console.log(destination);
+				})
+				.catch((error) => {
+					console.error('Error fetching geocoding data:', error);
+				});
+		}
+	}, [city, destination]);
+
+	useEffect(() => {
+		setFoodData([]);
+	
+
+		food.forEach((restaurant, index) => {
+			searchBoxApi
+				.get(`category/${convertToQuery('food', restaurant)}${searchBox_API_KEY}`)
+				.then((response) => {
+
+					console.log(response.data.features)
+					setFoodData(prevData => [...prevData, ...response.data.features]);
+				})
+				.catch((error) => {
+					console.error('Error fetching data:', error);
+				});
+		});
+	}, [food]);
+	useEffect(() => {
+
+		setDayData([]);
+	
+
+		dayActivity.forEach((activity, index) => {
+			searchBoxApi
+				.get(`category/${convertToQuery('daytimeActivities', activity)}${searchBox_API_KEY}`)
+				.then((response) => {
+					console.log(response.data.features)
+					setDayData(prevData => [...prevData, ...response.data.features]);
+				})
+				.catch((error) => {
+					console.error('Error fetching data:', error);
+				});
+		});
+	}, [dayActivity]);
+	useEffect(() => {
+		setNightData([]);
+	
+		nightActivity.forEach((activity, index) => {
+			searchBoxApi
+				.get(`category/${convertToQuery('nighttimeActivities', activity)}${searchBox_API_KEY}`)
+				.then((response) => {
+					console.log(response.data.features)
+					setNightData(prevData => [...prevData, ...response.data.features]);
+				})
+				.catch((error) => {
+					console.error('Error fetching data:', error);
+				});
+		});
+	}, [nightActivity]);
+
 
 const goToCalendar = () => {
   return dataPush(selectedActivities)
@@ -69,9 +223,40 @@ const goToCalendar = () => {
 				Here are your reccomendations! Select all the activities you'd
 				like to do on your trip:
 			</Text>
-			{data && data.length > 0 ? (
+
+			{foodData && foodData.length > 0 ? (
+			
 				<View>
-					{data.map((place, index) => (
+					<Text>
+					Your Food Options!
+					</Text>
+					{foodData.map((place, index) => (
+						<View key={index}>
+							<ActivityCard
+								place={place}
+								selectedActivities={selectedActivities}
+								setSelectedActivities={
+									setSelectedActivities
+								}></ActivityCard>
+						</View>
+					))}
+					<Text>
+					Day Time activity Options!
+					</Text>
+						{dayData.map((place, index) => (
+						<View key={index}>
+							<ActivityCard
+								place={place}
+								selectedActivities={selectedActivities}
+								setSelectedActivities={
+									setSelectedActivities
+								}></ActivityCard>
+						</View>
+					))}
+					<Text>
+					Night Time activity Options!
+					</Text>
+					{nightData.map((place, index) => (
 						<View key={index}>
 							<ActivityCard
 								place={place}

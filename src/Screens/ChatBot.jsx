@@ -28,22 +28,6 @@ function ChatBot({ setHolidayObj }) {
 		nighttimeActivities: ['Party', 'Pub', 'Bar', 'Live Entertainment'],
 	};
 
-	useEffect(() => {
-		if (city && destination) {
-			axios
-				.get(
-					`https://api.api-ninjas.com/v1/geocoding?city=${city}&country=${destination}`
-				)
-				.then((response) => {
-					console.log(response.data);
-					console.log(city);
-					console.log(destination);
-				})
-				.catch((error) => {
-					console.error('Error fetching geocoding data:', error);
-				});
-		}
-	}, [city, destination]);
 
 	const handleResponse = (response) => {
 		let selectedOption = '';
@@ -192,7 +176,8 @@ function ChatBot({ setHolidayObj }) {
 			/>
 			<Button
 				title="to Activities List"
-				onPress={() => navigation.navigate('ActivitiesList')}></Button>
+				onPress={() => navigation.navigate('ActivitiesList')}>
+      </Button>
 		</View>
 	);
 }
