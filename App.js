@@ -11,6 +11,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ChatBot from './src/Screens/ChatBot'
 import Home from './src/Screens/Home';
 import ActivitiesList from './src/Screens/ActivitiesList';
+import EventForm from './src/Components/EventForm';
 
 
 const Stack = createNativeStackNavigator();
@@ -24,7 +25,7 @@ export default App = () => {
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null); // Track user authentication state
   const [isLogin, setIsLogin] = useState(true);
-
+	const [holidayObj, setHolidayObj] = useState({});
   const auth = getAuth(app);
 
   useEffect(() => {
@@ -59,6 +60,7 @@ export default App = () => {
           console.error('Authentication error:', error.message);
         }
       };
+      console.log(holidayObj)
 
 
   return (
@@ -75,9 +77,12 @@ export default App = () => {
       setIsLogin={setIsLogin}
 
       />} />
-      <Stack.Screen name='ChatBot' component={ChatBot}/>
-      <Stack.Screen name='ActivitiesList' component={ActivitiesList}/>
+      <Stack.Screen name='ChatBot' children={(props) => <ChatBot {...props}
+      setHolidayObj={setHolidayObj}/>}/>
+      <Stack.Screen name='ActivitiesList' children={(props) => <ActivitiesList {...props}
+      holidayObj={holidayObj}/>}/>
       <Stack.Screen name='CalendarWeek' component={CalendarWeek}/>
+      <Stack.Screen name='EventForm' component={EventForm}/>
       </Stack.Navigator>
     </NavigationContainer>
 
