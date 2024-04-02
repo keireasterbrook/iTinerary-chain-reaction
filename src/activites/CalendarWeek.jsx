@@ -9,7 +9,7 @@ import {
   View, Button
 } from "react-native";
 import { enableExperimentalWebImplementation } from "react-native-gesture-handler";
-import dataFetch from "../utils/dataFetch";
+import { dataFetch }from "../utils/dataFetch";
 
 
 
