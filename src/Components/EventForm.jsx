@@ -1,13 +1,35 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, TextInput} from 'react-native';
+import {SafeAreaView, StyleSheet, TextInput, Text, Button} from 'react-native';
 import { useState } from 'react';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { useNavigation } from "@react-navigation/native";
 
 
-const EventForm = () => {
+const EventForm = ({setStartDate, setEndDate, onChangeText, text}) => {
+  const navigation = useNavigation()
 
-    const [text, onChangeText] = useState('');
+    
     const [number, onChangeNumber] = useState('');
+
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+    const showDatePicker = () => {
+      setDatePickerVisibility(true);
+    };
+
+    const hideDatePicker = () => {
+      setDatePickerVisibility(false);
+    };
+
   
+
+    const handleStartDateConfirm = (startDate) => {
+      setStartDate(startDate);
+      hideDatePicker();
+    };
+    
+ 
+    
     return (
       <SafeAreaView>
         <TextInput
@@ -18,20 +40,17 @@ const EventForm = () => {
           placeholder="Enter Event Title"
           keyboardType="default"
         />
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeNumber}
-          value={number}
-          placeholder="Choose start (picker)"
-          keyboardType="default"
-        />
-         <TextInput
-          style={styles.input}
-          onChangeText={onChangeNumber}
-          value={number}
-          placeholder="Choose end (picker)"
-          keyboardType="default"
-        />
+        <Button title="Select Start Date and Time:" onPress={showDatePicker} />
+      <DateTimePickerModal
+        isVisible={isDatePickerVisible}
+        mode="datetime"
+        onConfirm={handleStartDateConfirm}
+        onCancel={hideDatePicker}
+      />
+      <Button title='Submit' onPress={() => navigation.navigate("CalendarWeek")}></Button>
+
+    
+    
       </SafeAreaView>
     );
 

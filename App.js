@@ -26,7 +26,10 @@ export default App = () => {
   const [user, setUser] = useState(null); // Track user authentication state
   const [isLogin, setIsLogin] = useState(true);
 	const [holidayObj, setHolidayObj] = useState({});
+  const [startDate, setStartDate] = useState('');
+  const [text, onChangeText] = useState('');
   const auth = getAuth(app);
+  
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -60,7 +63,7 @@ export default App = () => {
           console.error('Authentication error:', error.message);
         }
       };
-      console.log(holidayObj)
+      // console.log(holidayObj)
 
 
   return (
@@ -81,8 +84,13 @@ export default App = () => {
       setHolidayObj={setHolidayObj}/>}/>
       <Stack.Screen name='ActivitiesList' children={(props) => <ActivitiesList {...props}
       holidayObj={holidayObj}/>}/>
-      <Stack.Screen name='CalendarWeek' component={CalendarWeek}/>
-      <Stack.Screen name='EventForm' component={EventForm}/>
+      <Stack.Screen name='CalendarWeek' children={(props) => <CalendarWeek {...props}
+      startDate={startDate}
+    text={text}/>}/>
+      <Stack.Screen name='EventForm' children={(props) => <EventForm {...props}
+      setStartDate={setStartDate}
+    text={text}
+    onChangeText={onChangeText}/>}/>
       </Stack.Navigator>
     </NavigationContainer>
 

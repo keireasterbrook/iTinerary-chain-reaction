@@ -11,12 +11,14 @@ import {
 import { enableExperimentalWebImplementation } from "react-native-gesture-handler";
 import { dataFetch }from "../utils/dataFetch";
 import { useNavigation } from "@react-navigation/native";
+import uuid from 'react-native-uuid';
 
 
 
-const CalendarWeek = () => {
+const CalendarWeek = ({startDate, text}) => {
   const [events, setEvents] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+
   
   // Will need to change the data range when date picker is sorted (hardcoded in these two functions at the moment)
   const generateRandomStartDate = () => {
@@ -58,12 +60,36 @@ const CalendarWeek = () => {
         });
       }, []);
 
+      function hourAdder(time) {
+        const stringTime = time.toLocaleTimeString('en-GB')
+        const slicedNum = stringTime.slice(0, 2)
+        const number = Number(slicedNum)
+        if(number === 9){
+          number = 10
+        } else {
+          number + 1
+        }
+        const returnTimeString = time.toISOString()
+        const newTime =  number + stringTime.slice(2)
+       
+        return returnTimeString.slice(0, 11) + newTime + returnTimeString.slice(-5)
+      }
 
+      const manualEvent = {
+        id: uuid.v4(),
+        title: text,
+        start: startDate,
+        end: startDate ? hourAdder(startDate) : '',
+        color: "#B1AFFF"
+      }
+
+      useEffect(() => {
+        setEvents([...events, manualEvent]);
+      },[startDate])
+
+      console.log(events, "EVENTS")
     
     const navigation = useNavigation()
-    
-     
-        
 
   return (
     <SafeAreaView style={styles.container}>

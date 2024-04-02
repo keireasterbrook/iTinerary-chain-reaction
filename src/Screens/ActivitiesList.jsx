@@ -57,7 +57,6 @@ const ActivitiesList = ({ holidayObj }) => {
 const goToCalendar = () => {
   return dataPush(selectedActivities)
   .then(() => {
-    console.log("hello from then block");
     navigation.navigate("CalendarWeek")
   })
 }
