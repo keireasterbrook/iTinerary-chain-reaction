@@ -62,39 +62,32 @@ const goToCalendar = () => {
   })
 }
 
-	const goToCalendar = () => {
-		return dataPush(selectedActivities).then(() => {
-			navigation.navigate('Itinerary-calendar');
-		});
-	};
 
-	return (
-		<View style={styles.authContainer}>
-			<Text>
-				Here are your reccomendations! Select all the activities you'd
-				like to do on your trip:
-			</Text>
-			{data && data.length > 0 ? (
-				<View>
-					{data.map((place, index) => (
-						<View key={index}>
-							<ActivityCard
-								place={place}
-								selectedActivities={selectedActivities}
-								setSelectedActivities={
-									setSelectedActivities
-								}></ActivityCard>
-						</View>
-					))}
-				</View>
-			) : (
-				<Text>Loading...</Text>
-			)}
-			<Button
-				title="Go to calendar"
-				onPress={() => goToCalendar()}></Button>
-		</View>
-	);
-};
+
+   return (
+     <View style={styles.authContainer}>
+      <Text>Here are your reccomendations! Select all the activities you'd like to do on your trip:</Text>
+         {data && data.length>0 ? (
+             <View>
+             {data.map((place, index) => (
+                 <View key ={index}>
+                    <ActivityCard place={place} selectedActivities={selectedActivities} setSelectedActivities={setSelectedActivities}></ActivityCard>
+      
+                 </View>
+             ))}
+           </View>
+             ) : (
+               <Text>Loading...</Text>
+             )}
+       <Button
+         title="Go to calendar"
+         onPress={() => goToCalendar()}
+       ></Button>
+     </View>
+   );
+}
+
+ 
+
 
 export default ActivitiesList;
