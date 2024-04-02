@@ -23,8 +23,8 @@ const CalendarWeek = ({startDate, text}) => {
   // Will need to change the data range when date picker is sorted (hardcoded in these two functions at the moment)
   const generateRandomStartDate = () => {
     const random = getRandomDate1(
-      new Date("2024-03-28T01:57:45.271Z"),
-      new Date("2024-03-28T10:57:45.271Z")
+      new Date("2024-04-03T01:57:45.271Z"),
+      new Date("2024-04-03T10:57:45.271Z")
       );
       return random;
     };
@@ -35,8 +35,8 @@ const CalendarWeek = ({startDate, text}) => {
     }
     const generateRandomEndDate = () => {
       const random = getRandomDate(
-        new Date("2024-03-29T01:57:45.271Z"),
-        new Date("2024-03-29T20:57:45.271Z")
+        new Date("2024-04-03T11:57:45.271Z"),
+        new Date("2024-04-03T20:57:45.271Z")
         );
         return random;
       };
@@ -48,9 +48,9 @@ const CalendarWeek = ({startDate, text}) => {
       
       useEffect(() => {
         dataFetch().then((activities) => {
-          const newEvents = activities.map((activity) => ({
-            id: activity.id,
-            title: activity.place_name,
+          const newEvents = activities.slice(0,4).map((activity) => ({
+            id: activity.properties.id,
+            title: activity.properties.name,
             start: generateRandomStartDate(),
             end: generateRandomEndDate(),
             color: "#B1AFFF",
