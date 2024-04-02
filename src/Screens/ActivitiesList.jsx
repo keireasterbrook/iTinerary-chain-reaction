@@ -62,11 +62,6 @@ const goToCalendar = () => {
   })
 }
 
-	const goToCalendar = () => {
-		return dataPush(selectedActivities).then(() => {
-			navigation.navigate('Itinerary-calendar');
-		});
-	};
 
 	return (
 		<View style={styles.authContainer}>
