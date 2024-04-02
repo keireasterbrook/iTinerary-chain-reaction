@@ -10,12 +10,13 @@ import {
 } from "react-native";
 import { enableExperimentalWebImplementation } from "react-native-gesture-handler";
 import { dataFetch }from "../utils/dataFetch";
+import { useNavigation } from "@react-navigation/native";
 
 
 
 const CalendarWeek = () => {
   const [events, setEvents] = useState([]);
-
+  const [modalVisible, setModalVisible] = useState(false);
   
   // Will need to change the data range when date picker is sorted (hardcoded in these two functions at the moment)
   const generateRandomStartDate = () => {
@@ -58,9 +59,17 @@ const CalendarWeek = () => {
       }, []);
 
 
+    
+    const navigation = useNavigation()
+    
+     
+        
+
   return (
     <SafeAreaView style={styles.container}>
-      <Button title='Add An Event' />
+      <Button 
+      title='Add An Event' 
+      onPress={() => navigation.navigate("EventForm")}/>
       <TimelineCalendar
         viewMode="week"
         events={events}
