@@ -10,18 +10,21 @@ import {
 } from "react-native";
 import { enableExperimentalWebImplementation } from "react-native-gesture-handler";
 import { dataFetch }from "../utils/dataFetch";
+import { useNavigation } from "@react-navigation/native";
+import uuid from 'react-native-uuid';
 
 
 
-const CalendarWeek = () => {
+const CalendarWeek = ({startDate, text}) => {
   const [events, setEvents] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
 
   
   // Will need to change the data range when date picker is sorted (hardcoded in these two functions at the moment)
   const generateRandomStartDate = () => {
     const random = getRandomDate1(
-      new Date("2024-03-28T01:57:45.271Z"),
-      new Date("2024-03-28T10:57:45.271Z")
+      new Date("2024-04-03T01:57:45.271Z"),
+      new Date("2024-04-03T10:57:45.271Z")
       );
       return random;
     };
@@ -32,8 +35,8 @@ const CalendarWeek = () => {
     }
     const generateRandomEndDate = () => {
       const random = getRandomDate(
-        new Date("2024-03-29T01:57:45.271Z"),
-        new Date("2024-03-29T20:57:45.271Z")
+        new Date("2024-04-03T11:57:45.271Z"),
+        new Date("2024-04-03T20:57:45.271Z")
         );
         return random;
       };
@@ -45,9 +48,9 @@ const CalendarWeek = () => {
       
       useEffect(() => {
         dataFetch().then((activities) => {
-          const newEvents = activities.map((activity) => ({
-            id: activity.id,
-            title: activity.place_name,
+          const newEvents = activities.slice(0,4).map((activity) => ({
+            id: activity.properties.id,
+            title: activity.properties.name,
             start: generateRandomStartDate(),
             end: generateRandomEndDate(),
             color: "#B1AFFF",
@@ -57,10 +60,42 @@ const CalendarWeek = () => {
         });
       }, []);
 
+      function hourAdder(time) {
+        const stringTime = time.toLocaleTimeString('en-GB')
+        const slicedNum = stringTime.slice(0, 2)
+        const number = Number(slicedNum)
+        if(number === 9){
+          number = 10
+        } else {
+          number + 1
+        }
+        const returnTimeString = time.toISOString()
+        const newTime =  number + stringTime.slice(2)
+       
+        return returnTimeString.slice(0, 11) + newTime + returnTimeString.slice(-5)
+      }
+
+      const manualEvent = {
+        id: uuid.v4(),
+        title: text,
+        start: startDate,
+        end: startDate ? hourAdder(startDate) : '',
+        color: "#B1AFFF"
+      }
+
+      useEffect(() => {
+        setEvents([...events, manualEvent]);
+      },[startDate])
+
+      console.log(events, "EVENTS")
+    
+    const navigation = useNavigation()
 
   return (
     <SafeAreaView style={styles.container}>
-      <Button title='Add An Event' />
+      <Button 
+      title='Add An Event' 
+      onPress={() => navigation.navigate("EventForm")}/>
       <TimelineCalendar
         viewMode="week"
         events={events}

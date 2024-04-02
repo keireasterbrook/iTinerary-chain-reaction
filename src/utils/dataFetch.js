@@ -10,11 +10,12 @@ const db = getFirestore(app)
 
 
 //getting all docs
-const colRef = collection(db, 'Activities')
+const colRef = collection(db, 'selectedActivities')
 
 async function dataFetch() {
   const activitiesData = []
   const snapshot = await getDocs(colRef);
+
   snapshot.forEach(doc => {
     // console.log(doc.id, '=>', doc.data())
     const activityObject = doc.data()

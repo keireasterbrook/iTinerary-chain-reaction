@@ -11,6 +11,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ChatBot from './src/Screens/ChatBot'
 import Home from './src/Screens/Home';
 import ActivitiesList from './src/Screens/ActivitiesList';
+import EventForm from './src/Components/EventForm';
 
 
 const Stack = createNativeStackNavigator();
@@ -25,7 +26,10 @@ export default App = () => {
   const [user, setUser] = useState(null); // Track user authentication state
   const [isLogin, setIsLogin] = useState(true);
 	const [holidayObj, setHolidayObj] = useState({});
+  const [startDate, setStartDate] = useState('');
+  const [text, onChangeText] = useState('');
   const auth = getAuth(app);
+  
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -59,7 +63,7 @@ export default App = () => {
           console.error('Authentication error:', error.message);
         }
       };
-      console.log(holidayObj)
+      // console.log(holidayObj)
 
 
   return (
@@ -80,7 +84,13 @@ export default App = () => {
       setHolidayObj={setHolidayObj}/>}/>
       <Stack.Screen name='ActivitiesList' children={(props) => <ActivitiesList {...props}
       holidayObj={holidayObj}/>}/>
-      <Stack.Screen name='CalendarWeek' component={CalendarWeek}/>
+      <Stack.Screen name='CalendarWeek' children={(props) => <CalendarWeek {...props}
+      startDate={startDate}
+    text={text}/>}/>
+      <Stack.Screen name='EventForm' children={(props) => <EventForm {...props}
+      setStartDate={setStartDate}
+    text={text}
+    onChangeText={onChangeText}/>}/>
       </Stack.Navigator>
     </NavigationContainer>
 
@@ -88,15 +98,13 @@ export default App = () => {
   );
 }
 
-
-
 export const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#F0F0F0',
   },
   authContainer: {
     width: '80%',
@@ -123,7 +131,7 @@ export const styles = StyleSheet.create({
     marginBottom: 16,
   },
   toggleText: {
-    color: '#3498db',
+    color: '#3498DB',
     textAlign: 'center',
   },
   bottomContainer: {
@@ -135,3 +143,5 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
   },
 });
+
+

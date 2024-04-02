@@ -1,10 +1,11 @@
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity } from "react-native";
 import { styles } from "../../App";
 import { useNavigation } from "@react-navigation/native";
 import axios, { all } from "axios";
 import { useEffect, useState } from "react";
 import ActivityCard from "../Components/ActivityCard";
 import { dataPush, dataFetch } from "../utils/dataFetch";
+import colours from "../styles/colours";
 
 const searchBox_API_KEY =
 	'?access_token=sk.eyJ1IjoiYWh1c3M5OCIsImEiOiJjbHU2d3oyaGIyNjVrMmlzM3Q1d3ZkMDAyIn0.Z8t1arJJokTQXfGF0-KJzw&language=en&limit=5';
@@ -211,70 +212,101 @@ const ActivitiesList = ({ holidayObj }) => {
 const goToCalendar = () => {
   return dataPush(selectedActivities)
   .then(() => {
-    console.log("hello from then block");
     navigation.navigate("CalendarWeek")
   })
 }
 
 
-	return (
-		<View style={styles.authContainer}>
-			<Text>
-				Here are your reccomendations! Select all the activities you'd
-				like to do on your trip:
-			</Text>
-
-			{foodData && foodData.length > 0 ? (
+   return (
+	<View style={{flex:1}}>
+		<ImageBackground
+        source={require("../styles/images/gradient1.jpg")}
+        style={{ flex: 1, width: "100%", height: "100%" }}
+      >
+     <View style={activityListStyle.list}>
+      <Text style={{fontSize: 24, textAlign: 'center', padding: 20}}> Your personalised recommendations are ready!</Text>
+	  <Text style={{fontSize: 20}}>Select all the activities you'd like to do on your trip:</Text>
+         
+		 
+	  {foodData && foodData.length > 0 ? (
 			
-				<View>
-					<Text>
-					Your Food Options!
-					</Text>
-					{foodData.map((place, index) => (
-						<View key={index}>
-							<ActivityCard
-								place={place}
-								selectedActivities={selectedActivities}
-								setSelectedActivities={
-									setSelectedActivities
-								}></ActivityCard>
-						</View>
-					))}
-					<Text>
-					Day Time activity Options!
-					</Text>
-						{dayData.map((place, index) => (
-						<View key={index}>
-							<ActivityCard
-								place={place}
-								selectedActivities={selectedActivities}
-								setSelectedActivities={
-									setSelectedActivities
-								}></ActivityCard>
-						</View>
-					))}
-					<Text>
-					Night Time activity Options!
-					</Text>
-					{nightData.map((place, index) => (
-						<View key={index}>
-							<ActivityCard
-								place={place}
-								selectedActivities={selectedActivities}
-								setSelectedActivities={
-									setSelectedActivities
-								}></ActivityCard>
-						</View>
-					))}
-				</View>
-			) : (
-				<Text>Loading...</Text>
-			)}
-			<Button
-				title="Go to calendar"
-				onPress={() => goToCalendar()}></Button>
-		</View>
-	);
-};
+			<View>
+				<Text>
+				Your Food Options!
+				</Text>
+				{foodData.map((place, index) => (
+					<View key={index}>
+						<ActivityCard
+							place={place}
+							selectedActivities={selectedActivities}
+							setSelectedActivities={
+								setSelectedActivities
+							}></ActivityCard>
+					</View>
+				))}
+				<Text>
+				Day Time activity Options!
+				</Text>
+					{dayData.map((place, index) => (
+					<View key={index}>
+						<ActivityCard
+							place={place}
+							selectedActivities={selectedActivities}
+							setSelectedActivities={
+								setSelectedActivities
+							}></ActivityCard>
+					</View>
+				))}
+				<Text>
+				Night Time activity Options!
+				</Text>
+				{nightData.map((place, index) => (
+					<View key={index}>
+						<ActivityCard
+							place={place}
+							selectedActivities={selectedActivities}
+							setSelectedActivities={
+								setSelectedActivities
+							}></ActivityCard>
+					</View>
+				))}
+           </View>
+             ) : (
+               <Text>Loading...</Text>
+             )}
+
+
+
+<Text style={{fontSize: 20, padding: 20}}>Happy with your selections?</Text>
+<TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => goToCalendar()}
+          >
+            <View style={activityListStyle.calendarbtn}>
+              <Text style={{ fontWeight: "bold" }}>View my calendar</Text>
+            </View>
+          </TouchableOpacity>
+     </View>
+	   </ImageBackground>
+	 </View>
+   );
+}
+
+const activityListStyle = StyleSheet.create({
+list: {
+	padding: 20,
+	alignItems: 'center',
+	backgroundColor: colours.lightpurple,
+	opacity: 0.7
+},
+calendarbtn: {
+	backgroundColor: colours.white,
+	padding: 10,
+	borderRadius: 7,
+	opacity: 0.7
+}
+})
+ 
+
 
 export default ActivitiesList;

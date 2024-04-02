@@ -188,4 +188,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default ChatBot;
+export default ChatBot
