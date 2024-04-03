@@ -128,31 +128,36 @@ function ChatBot({ setHolidayObj }) {
 		});
 	};
 
-	const onSend = (newMessages = []) => {
-		const response = newMessages[0].text;
-		console.log(questionCounter, '<<<<< onsend counter');
-		if (questionCounter === 0) {
-			setDestination(response);
-			setQuestionCounter(1);
-			handleResponse(
-				`Great! What city are you planning to visit in ${response}?`
-			);
-		} else if (questionCounter === 1) {
-			setCity(response);
-			setQuestionCounter(2);
-			handleResponse(`Got it! How many days will your holiday be?`);
-		} else if (questionCounter === 2) {
-			setHolidayLength(response);
-			setQuestionCounter(3);
-			handleResponse(
-				`You selected: ${response} days. What type of food options would you like to have in ${city}? Here are the options: ${categories.food.join(
-					', '
-				)}.`
-			);
-		}
-
-		newMessages[0].text = '';
-	};
+  const onSend = (newMessages = []) => {
+    const response = newMessages[0].text;
+    console.log(questionCounter, '<<<<< onsend counter');
+    const userMessage = {
+      _id: messages.length + 1,
+      text: response,
+      createdAt: new Date(),
+      user: {
+        _id: 1, 
+        name: 'User',
+      },
+    };
+    setMessages((prevMessages) => [userMessage,...prevMessages ]);
+  
+    if (questionCounter === 0) {
+      setDestination(response);
+      setQuestionCounter(1);
+      handleResponse(`Great! What city are you planning to visit in ${response}?`);
+    } else if (questionCounter === 1) {
+      setCity(response);
+      setQuestionCounter(2);
+      handleResponse(`Got it! How many days will your holiday be?`);
+    } else if (questionCounter === 2) {
+      setHolidayLength(response);
+      setQuestionCounter(3);
+      handleResponse(`You selected: ${response} days. What type of food options would you like to have in ${city}? Here are the options: ${categories.food.join(', ')}.`);
+    }
+  
+    newMessages[0].text = '';
+  };
 
 	useEffect(() => {
 		handleResponse(
@@ -188,4 +193,11 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default ChatBot
+export default ChatBot;
+
+
+
+
+
+
+
