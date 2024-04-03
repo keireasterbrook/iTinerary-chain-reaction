@@ -35,7 +35,11 @@ const ActivityCard = ({ place, selectedActivities, setSelectedActivities }) => {
 
   return (
     <View style={activityStyle.activityContainer}>
-      <BouncyCheckbox
+      <BouncyCheckbox size={25}
+  fillColor={colours.darkpurple}
+  unfillColor="#FFFFFF"
+  iconStyle={{ borderColor: colours.darkpurple}}
+  innerIconStyle={{ borderWidth: 2 }}
         style={activityStyle.activityname}
         textStyle={{color: 'black',
           textDecorationLine: "none",
@@ -90,9 +94,9 @@ const activityStyle = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
+    paddingBottom: 10,
   },
   activityname: {
-    
     maxWidth: '70%',
   },
   seemore: {

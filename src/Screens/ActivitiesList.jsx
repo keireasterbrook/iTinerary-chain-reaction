@@ -149,7 +149,7 @@ const ActivitiesList = ({ holidayObj }) => {
 				)
 				.then((response) => {
 					console.log(response.data);
-					console.log(city);
+					console.log(city, "<<<<<");
 					console.log(destination);
 				})
 				.catch((error) => {
@@ -224,15 +224,15 @@ const goToCalendar = () => {
         style={{ flex: 1, width: "100%", height: "100%" }}
       >
      <View style={activityListStyle.list}>
-      <Text style={{fontSize: 24, textAlign: 'center', padding: 20}}> Your personalised recommendations are ready!</Text>
-	  <Text style={{fontSize: 20}}>Select all the activities you'd like to do on your trip:</Text>
+      <Text style={{fontSize: 24, fontWeight: 'bold', textAlign: 'center', padding: 20, color: colours.darkpurple}}> Your personalised recommendations are ready!</Text>
+	  <Text style={{fontSize: 18}}>Select all the activities you'd like to do on your trip:</Text>
          
 		 
 	  {foodData && foodData.length > 0 ? (
 			
 			<View>
-				<Text>
-				Your Food Options!
+				<Text style={activityListStyle.subheading}>
+				Places to eat
 				</Text>
 				{foodData.map((place, index) => (
 					<View key={index}>
@@ -244,8 +244,8 @@ const goToCalendar = () => {
 							}></ActivityCard>
 					</View>
 				))}
-				<Text>
-				Day Time activity Options!
+				<Text style={activityListStyle.subheading}>
+				During the day
 				</Text>
 					{dayData.map((place, index) => (
 					<View key={index}>
@@ -257,8 +257,8 @@ const goToCalendar = () => {
 							}></ActivityCard>
 					</View>
 				))}
-				<Text>
-				Night Time activity Options!
+				<Text style={activityListStyle.subheading}>
+				During the evening
 				</Text>
 				{nightData.map((place, index) => (
 					<View key={index}>
@@ -293,11 +293,18 @@ const goToCalendar = () => {
 }
 
 const activityListStyle = StyleSheet.create({
+subheading: {
+	paddingVertical: 20,
+	fontSize: 18,
+	left: 0,
+	color: colours.darkpurple,
+	fontWeight: 'bold'
+},
 list: {
 	padding: 20,
 	alignItems: 'center',
 	backgroundColor: colours.lightpurple,
-	opacity: 0.7
+	opacity: 0.8
 },
 calendarbtn: {
 	backgroundColor: colours.white,
