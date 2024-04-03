@@ -1,18 +1,11 @@
-import {
-	View,
-	Text,
-	Button,
-	StyleSheet,
-	ImageBackground,
-	TouchableOpacity,
-} from 'react-native';
-import { styles } from '../../App';
-import { useNavigation } from '@react-navigation/native';
-import axios, { all } from 'axios';
-import { useEffect, useState } from 'react';
-import ActivityCard from '../Components/ActivityCard';
-import { dataPush, dataFetch } from '../utils/dataFetch';
-import colours from '../styles/colours';
+import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity, ScrollView } from "react-native";
+import { styles } from "../../App";
+import { useNavigation } from "@react-navigation/native";
+import axios, { all } from "axios";
+import { useEffect, useState } from "react";
+import ActivityCard from "../Components/ActivityCard";
+import { dataPush, dataFetch } from "../utils/dataFetch";
+import colours from "../styles/colours";
 
 //https://api.mapbox.com/search/searchbox/v1/category/coffee?access_token=sk.eyJ1IjoiY[…]2C38.41262975705166%2C-120.52250410696067%2C39.54169087094499
 //https://api.mapbox.com/search/searchbox/v1/suggest?q=Michigan%20Stadium?language=en&limit=1&session_token=%5BGENERATED-UUID%5D&proximity=-83.748708,42.265837&country=US&access_token=YOUR_MAPBOX_ACCESS_TOKEN
@@ -50,7 +43,8 @@ const ActivitiesList = ({ holidayObj }) => {
 		setNightData(holidayObj.nightActivity);
 		console.log(holidayObj, 'im in the activity lisst!!');
 	}, []);
-
+	
+	console.log(selectedActivities, "selected activities")
 	const categories = {
 		food: [
 			{
@@ -171,7 +165,7 @@ const ActivitiesList = ({ holidayObj }) => {
 				)
 				.then((response) => {
 					console.log(response.data);
-					console.log(city);
+					console.log(city, "<<<<<");
 					console.log(destination);
 					setDestinationDetails(response.data[0]);
 					setLat(response.data[0].latitude);
@@ -268,17 +262,19 @@ const ActivitiesList = ({ holidayObj }) => {
 		}
 	}, [nightActivity,long, lat]);
 
-	const goToCalendar = () => {
-		return dataPush(selectedActivities).then(() => {
-			navigation.navigate('CalendarWeek');
-		});
-	};
+	const collectionName = holidayObj.destination
+const goToCalendar = () => {
+  return dataPush({collectionName, selectedActivities})
+  .then(() => {
+    navigation.navigate("CalendarWeek")
+  })
+}
 
 	if (location === false) {
 		return <Text>LOADING...</Text>;
 	} else {
 		return (
-			<View style={{ flex: 1 }}>
+			<ScrollView style={{ flex: 1 }}>
 				<ImageBackground
 					source={require('../styles/images/gradient1.jpg')}
 					style={{ flex: 1, width: '100%', height: '100%' }}>
@@ -343,38 +339,45 @@ const ActivitiesList = ({ holidayObj }) => {
 							<Text>Loading...</Text>
 						)}
 
-						<Text style={{ fontSize: 20, padding: 20 }}>
-							Happy with your selections?
-						</Text>
-						<TouchableOpacity
-							activeOpacity={0.8}
-							onPress={() => goToCalendar()}>
-							<View style={activityListStyle.calendarbtn}>
-								<Text style={{ fontWeight: 'bold' }}>
-									View my calendar
-								</Text>
-							</View>
-						</TouchableOpacity>
-					</View>
-				</ImageBackground>
-			</View>
-		);
-	}
-};
 
+
+<Text style={{fontSize: 20, padding: 20}}>Happy with your selections?</Text>
+<TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => goToCalendar()}
+          >
+            <View style={activityListStyle.calendarbtn}>
+              <Text style={{ fontWeight: "bold" }}>View my calendar</Text>
+            </View>
+          </TouchableOpacity>
+     </View>
+	   </ImageBackground>
+	 </ScrollView>
+   );
+}
+}
 const activityListStyle = StyleSheet.create({
-	list: {
-		padding: 20,
-		alignItems: 'center',
-		backgroundColor: colours.lightpurple,
-		opacity: 0.7,
-	},
-	calendarbtn: {
-		backgroundColor: colours.white,
-		padding: 10,
-		borderRadius: 7,
-		opacity: 0.7,
-	},
-});
+subheading: {
+	paddingVertical: 20,
+	fontSize: 18,
+	left: 0,
+	color: colours.darkpurple,
+	fontWeight: 'bold'
+},
+list: {
+	padding: 20,
+	alignItems: 'center',
+	backgroundColor: colours.lightpurple,
+	opacity: 0.8
+},
+calendarbtn: {
+	backgroundColor: colours.white,
+	padding: 10,
+	borderRadius: 7,
+	opacity: 0.7
+}
+})
+
+
 
 export default ActivitiesList;

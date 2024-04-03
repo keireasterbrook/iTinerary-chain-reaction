@@ -23,6 +23,7 @@
     "expo-router": "~3.4.8",
     "expo-status-bar": "~1.11.1",
     "firebase": "^10.9.0",
+    "moment": "^2.30.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.73.6",
@@ -43,7 +44,8 @@
     "react-native-simple-select-button": "^0.0.6",
     "react-native-uuid": "^2.0.2",
     "react-native-vector-icons": ">= 7.1.0",
-    "react-native-web": "~0.19.6"
+    "react-native-web": "~0.19.6",
+    "rn-select-date-range": "^5.0.0"
   },
   "overrides": {
     "@howljs/calendar-kit": {

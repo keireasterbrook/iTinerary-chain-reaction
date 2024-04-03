@@ -31,7 +31,7 @@ const EventForm = ({setStartDate, setEndDate, onChangeText, text}) => {
  
     
     return (
-      <SafeAreaView>
+      <SafeAreaView >
         <TextInput
         required
           style={styles.input}

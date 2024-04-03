@@ -12,68 +12,37 @@ import { enableExperimentalWebImplementation } from "react-native-gesture-handle
 import { dataFetch }from "../utils/dataFetch";
 import { useNavigation } from "@react-navigation/native";
 import uuid from 'react-native-uuid';
+import { generateRandomTimeSlotISO } from "../utils/generateRandomTime";
+import { hourAdder } from "../utils/hourAdder";
 
-
-
-const CalendarWeek = ({startDate, text}) => {
+const CalendarWeek = ({startDate, text, collectionName, selectedRange}) => {
   const [events, setEvents] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
 
-  
-  // Will need to change the data range when date picker is sorted (hardcoded in these two functions at the moment)
-  const generateRandomStartDate = () => {
-    const random = getRandomDate1(
-      new Date("2024-04-03T01:57:45.271Z"),
-      new Date("2024-04-03T10:57:45.271Z")
-      );
-      return random;
-    };
-    function getRandomDate1(from, to) {
-      const fromTime = from.getTime();
-      const toTime = to.getTime();
-      return new Date(fromTime + Math.random() * (toTime - fromTime));
-    }
-    const generateRandomEndDate = () => {
-      const random = getRandomDate(
-        new Date("2024-04-03T11:57:45.271Z"),
-        new Date("2024-04-03T20:57:45.271Z")
-        );
-        return random;
-      };
-      function getRandomDate(from, to) {
-        const fromTime = from.getTime();
-        const toTime = to.getTime();
-        return new Date(fromTime + Math.random() * (toTime - fromTime));
-      }
+  const firstDay = new Date(selectedRange.firstDate)
+  const lastDay = new Date(selectedRange.secondDate)
+  const timeDifferenceMS = lastDay - firstDay
+  const timeDifferenceDays = Math.floor(timeDifferenceMS / 86400000)
       
       useEffect(() => {
-        dataFetch().then((activities) => {
-          const newEvents = activities.slice(0,4).map((activity) => ({
-            id: activity.properties.id,
-            title: activity.properties.name,
-            start: generateRandomStartDate(),
-            end: generateRandomEndDate(),
-            color: "#B1AFFF",
-          }));
+        dataFetch(collectionName).then((activities) => {
+
+          const newEvents = activities.slice(0, 7).map((activity) => {
+            const { start, end } = generateRandomTimeSlotISO(
+              firstDay,
+              timeDifferenceDays
+            );
+            return {
+              id: activity.properties.id,
+              title: activity.properties.name,
+              start: start,
+              end: end,
+              color: "#B1AFFF",
+            };
+          });
           setEvents(newEvents);
-      
         });
       }, []);
 
-      function hourAdder(time) {
-        const stringTime = time.toLocaleTimeString('en-GB')
-        const slicedNum = stringTime.slice(0, 2)
-        const number = Number(slicedNum)
-        if(number === 9){
-          number = 10
-        } else {
-          number + 1
-        }
-        const returnTimeString = time.toISOString()
-        const newTime =  number + stringTime.slice(2)
-       
-        return returnTimeString.slice(0, 11) + newTime + returnTimeString.slice(-5)
-      }
 
       const manualEvent = {
         id: uuid.v4(),
@@ -86,8 +55,6 @@ const CalendarWeek = ({startDate, text}) => {
       useEffect(() => {
         setEvents([...events, manualEvent]);
       },[startDate])
-
-      console.log(events, "EVENTS")
     
     const navigation = useNavigation()
 
@@ -95,14 +62,38 @@ const CalendarWeek = ({startDate, text}) => {
     <SafeAreaView style={styles.container}>
       <Button 
       title='Add An Event' 
+      color={'#B1AFFF'}
       onPress={() => navigation.navigate("EventForm")}/>
       <TimelineCalendar
+        key={manualEvent.id}
         viewMode="week"
         events={events}
         allowPinchToZoom
         initialTimeIntervalHeight={60}
         minTimeIntervalHeight={29}
-        maxTimeIntervalHeight={110}/>
+        maxTimeIntervalHeight={110}
+        theme={{
+          //Saturday style
+          saturdayName: { color: '#7f7dff' },
+          saturdayNumber: { color: '#7f7dff' },
+          saturdayNumberContainer: { backgroundColor: 'white' },
+
+          //Sunday style
+          sundayName: { color: '#7f7dff' },
+          sundayNumber: { color: '#7f7dff' },
+          sundayNumberContainer: { backgroundColor: 'white' },
+
+          //Today style
+          todayName: { color: '#7f7dff' },
+          todayNumber: { color: 'white' },
+          todayNumberContainer: { backgroundColor: '#7f7dff' },
+      
+          //Normal style
+          dayName: { color: "#7f7dff" },
+          dayNumber: { color: "#7f7dff" },
+          dayNumberContainer: { backgroundColor: 'white' },
+        }}
+        />
     </SafeAreaView>
   );
 };
@@ -110,5 +101,6 @@ const CalendarWeek = ({startDate, text}) => {
 export default CalendarWeek;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#FFF" },
+  container: { flex: 1, 
+    backgroundColor: "#FFF" },
 });
