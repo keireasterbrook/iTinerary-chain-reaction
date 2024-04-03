@@ -28,7 +28,8 @@ const ActivitiesList = ({ holidayObj }) => {
 		setNightData(holidayObj.nightActivity);
 		console.log(holidayObj, 'im in the activity lisst!!');
 	}, []);
-
+	
+	console.log(selectedActivities, "selected activities")
 	const categories = {
 		food: [
 			{
@@ -208,9 +209,9 @@ const ActivitiesList = ({ holidayObj }) => {
 		});
 	}, [nightActivity]);
 
-
+const collectionName = holidayObj.destination
 const goToCalendar = () => {
-  return dataPush(selectedActivities)
+  return dataPush({collectionName, selectedActivities})
   .then(() => {
     navigation.navigate("CalendarWeek")
   })
