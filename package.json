@@ -23,6 +23,7 @@
     "expo-router": "~3.4.8",
     "expo-status-bar": "~1.11.1",
     "firebase": "^10.9.0",
+    "moment": "^2.30.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.73.6",
@@ -30,11 +31,9 @@
     "react-native-calendars": "^1.1304.1",
     "react-native-gesture-handler": "^2.15.0",
     "react-native-gifted-chat": "^2.4.0",
-
-    "react-native-modal-datetime-picker": "^17.1.0",
-
     "react-native-modal": "^13.0.1",
-
+    "react-native-modal-datetime-picker": "^17.1.0",
+    "react-native-modern-datepicker": "^1.0.0-beta.91",
     "react-native-paper": "^5.12.3",
     "react-native-radio-buttons-group": "^3.1.0",
     "react-native-reanimated": "~3.6.2",
@@ -44,7 +43,8 @@
     "react-native-simple-select-button": "^0.0.6",
     "react-native-uuid": "^2.0.2",
     "react-native-vector-icons": ">= 7.1.0",
-    "react-native-web": "~0.19.6"
+    "react-native-web": "~0.19.6",
+    "rn-select-date-range": "^5.0.0"
   },
   "overrides": {
     "@howljs/calendar-kit": {
