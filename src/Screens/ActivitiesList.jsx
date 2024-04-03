@@ -1,4 +1,4 @@
-import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity } from "react-native";
+import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity, ScrollView } from "react-native";
 import { styles } from "../../App";
 import { useNavigation } from "@react-navigation/native";
 import axios, { all } from "axios";
@@ -218,7 +218,7 @@ const goToCalendar = () => {
 
 
    return (
-	<View style={{flex:1}}>
+	<ScrollView style={{flex:1}}>
 		<ImageBackground
         source={require("../styles/images/gradient1.jpg")}
         style={{ flex: 1, width: "100%", height: "100%" }}
@@ -288,7 +288,7 @@ const goToCalendar = () => {
           </TouchableOpacity>
      </View>
 	   </ImageBackground>
-	 </View>
+	 </ScrollView>
    );
 }
 
