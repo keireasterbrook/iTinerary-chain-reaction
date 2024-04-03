@@ -16,6 +16,7 @@ import { SafeAreaView } from 'react-native';
 import { StatusBar } from 'react-native';
 import { Platform } from 'react-native';
 import colours from './src/styles/colours';
+import DisplayDatePicker from './src/Screens/DatePicker';
 
 
 const Stack = createNativeStackNavigator();
@@ -32,6 +33,7 @@ export default App = () => {
   const [startDate, setStartDate] = useState('');
   const [text, onChangeText] = useState('');
   const auth = getAuth(app);
+  const [selectedRange, setSelectedRange] = useState({});
   
   const collectionName = holidayObj.destination
 
@@ -68,13 +70,10 @@ export default App = () => {
           console.error('Authentication error:', error.message);
         }
       };
-      // console.log(holidayObj)
-
-      
 
   return (
     
-     <SafeAreaView style={{ flex: 1, backgroundColor: colours.darkpurple }}>
+  <SafeAreaView style={{ flex: 1, backgroundColor: colours.darkpurple }}>
   <StatusBar translucent backgroundColor="transparent" />
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Home' screenOptions={{
@@ -104,11 +103,18 @@ export default App = () => {
       <Stack.Screen name='CalendarWeek'  options={{ title: 'My Itinerary' }} children={(props) => <CalendarWeek {...props}
       startDate={startDate}
     text={text}
-    collectionName={collectionName}/>}/>
+    collectionName={collectionName}
+    selectedRange={selectedRange}
+    />}/>
       <Stack.Screen name='EventForm'  options={{ title: 'New Event' }} children={(props) => <EventForm {...props}
       setStartDate={setStartDate}
     text={text}
     onChangeText={onChangeText}/>}/>
+    <Stack.Screen name='DisplayDatePicker' option={{title: 'Choose Your Dates'}} children={(props) => <DisplayDatePicker {...props} 
+    setStartDate={setStartDate} 
+    selectedRange={selectedRange}
+    setSelectedRange={setSelectedRange}/> 
+    } />
       </Stack.Navigator>
     </NavigationContainer>
       </SafeAreaView>

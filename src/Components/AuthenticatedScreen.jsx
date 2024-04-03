@@ -40,7 +40,7 @@ const AuthenticatedScreen = ({ user, handleAuthentication }) => {
 
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => navigation.navigate("ChatBot")}
+            onPress={() => navigation.navigate("DisplayDatePicker")}
           >
             <View style={style.getstartedbtn}>
               <Text style={{ fontWeight: "bold" }}>Get Started</Text>

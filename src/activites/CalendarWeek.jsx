@@ -12,59 +12,24 @@ import { enableExperimentalWebImplementation } from "react-native-gesture-handle
 import { dataFetch }from "../utils/dataFetch";
 import { useNavigation } from "@react-navigation/native";
 import uuid from 'react-native-uuid';
+import { generateRandomTimeSlotISO } from "../utils/generateRandomTime";
+import { hourAdder } from "../utils/hourAdder";
 
-
-
-const CalendarWeek = ({startDate, text, collectionName}) => {
+const CalendarWeek = ({startDate, text, collectionName, selectedRange}) => {
   const [events, setEvents] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
 
-
-  const holidayStartDate = "2024-04-03";
-  const holidayDuration = 10;
-
-  function generateRandomTimeSlotISO(startDaate, durationInDays) {
-    const startHour = 8;
-    const endHour = 17;
-
-    const holidayStart = new Date(startDaate);
-    const holidayEnd = new Date(holidayStart);
-    holidayEnd.setDate(holidayStart.getDate() + durationInDays);
-
-    const randomTime = new Date(
-      holidayStart.getTime() +
-        Math.random() * (holidayEnd.getTime() - holidayStart.getTime())
-    );
-
-    randomTime.setHours(
-      Math.floor(Math.random() * (endHour - startHour)) + startHour,
-      Math.floor(Math.random() * 60),
-      Math.floor(Math.random() * 60),
-      Math.floor(Math.random() * 1000)
-    );
-
-    const endTime = new Date(randomTime.getTime());
-    endTime.setHours(endTime.getHours() + 1);
-
-    const startTimeISO = randomTime.toISOString();
-    const endTimeISO = endTime.toISOString();
-
-    return { start: startTimeISO, end: endTimeISO };
-  }
-
-  const timeSlot = generateRandomTimeSlotISO(holidayStartDate, holidayDuration)
-
-  console.log(timeSlot, "<<<<< This is time slot");
-
-
+  const firstDay = new Date(selectedRange.firstDate)
+  const lastDay = new Date(selectedRange.secondDate)
+  const timeDifferenceMS = lastDay - firstDay
+  const timeDifferenceDays = Math.floor(timeDifferenceMS / 86400000)
       
       useEffect(() => {
         dataFetch(collectionName).then((activities) => {
 
           const newEvents = activities.slice(0, 7).map((activity) => {
             const { start, end } = generateRandomTimeSlotISO(
-              holidayStartDate,
-              holidayDuration
+              firstDay,
+              timeDifferenceDays
             );
             return {
               id: activity.properties.id,
@@ -79,22 +44,6 @@ const CalendarWeek = ({startDate, text, collectionName}) => {
       }, []);
 
 
-
-      function hourAdder(time) {
-        const stringTime = time.toLocaleTimeString('en-GB')
-        const slicedNum = stringTime.slice(0, 2)
-        const number = Number(slicedNum)
-        if(number === 9){
-          number = 10
-        } else {
-          number + 1
-        }
-        const returnTimeString = time.toISOString()
-        const newTime =  number + stringTime.slice(2)
-       
-        return returnTimeString.slice(0, 11) + newTime + returnTimeString.slice(-5)
-      }
-
       const manualEvent = {
         id: uuid.v4(),
         title: text,
@@ -106,8 +55,6 @@ const CalendarWeek = ({startDate, text, collectionName}) => {
       useEffect(() => {
         setEvents([...events, manualEvent]);
       },[startDate])
-
-      console.log(events, "EVENTS")
     
     const navigation = useNavigation()
 
