@@ -19,46 +19,66 @@ const CalendarWeek = ({startDate, text}) => {
   const [events, setEvents] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
 
-  
-  // Will need to change the data range when date picker is sorted (hardcoded in these two functions at the moment)
-  const generateRandomStartDate = () => {
-    const random = getRandomDate1(
-      new Date("2024-04-03T01:57:45.271Z"),
-      new Date("2024-04-03T10:57:45.271Z")
-      );
-      return random;
-    };
-    function getRandomDate1(from, to) {
-      const fromTime = from.getTime();
-      const toTime = to.getTime();
-      return new Date(fromTime + Math.random() * (toTime - fromTime));
-    }
-    const generateRandomEndDate = () => {
-      const random = getRandomDate(
-        new Date("2024-04-03T11:57:45.271Z"),
-        new Date("2024-04-03T20:57:45.271Z")
-        );
-        return random;
-      };
-      function getRandomDate(from, to) {
-        const fromTime = from.getTime();
-        const toTime = to.getTime();
-        return new Date(fromTime + Math.random() * (toTime - fromTime));
-      }
+
+  const holidayStartDate = "2024-04-03";
+  const holidayDuration = 10;
+
+  function generateRandomTimeSlotISO(startDaate, durationInDays) {
+    const startHour = 8;
+    const endHour = 17;
+
+    const holidayStart = new Date(startDaate);
+    const holidayEnd = new Date(holidayStart);
+    holidayEnd.setDate(holidayStart.getDate() + durationInDays);
+
+    const randomTime = new Date(
+      holidayStart.getTime() +
+        Math.random() * (holidayEnd.getTime() - holidayStart.getTime())
+    );
+
+    randomTime.setHours(
+      Math.floor(Math.random() * (endHour - startHour)) + startHour,
+      Math.floor(Math.random() * 60),
+      Math.floor(Math.random() * 60),
+      Math.floor(Math.random() * 1000)
+    );
+
+    const endTime = new Date(randomTime.getTime());
+    endTime.setHours(endTime.getHours() + 1);
+
+    const startTimeISO = randomTime.toISOString();
+    const endTimeISO = endTime.toISOString();
+
+    return { start: startTimeISO, end: endTimeISO };
+  }
+
+  const timeSlot = generateRandomTimeSlotISO(holidayStartDate, holidayDuration)
+
+  console.log(timeSlot, "<<<<< This is time slot");
+
+
       
       useEffect(() => {
         dataFetch().then((activities) => {
-          const newEvents = activities.slice(0,4).map((activity) => ({
-            id: activity.properties.id,
-            title: activity.properties.name,
-            start: generateRandomStartDate(),
-            end: generateRandomEndDate(),
-            color: "#B1AFFF",
-          }));
+
+          const newEvents = activities.slice(0, 4).map((activity) => {
+            const { start, end } = generateRandomTimeSlotISO(
+              holidayStartDate,
+              holidayDuration
+            );
+            return {
+              id: activity.properties.id,
+              title: activity.properties.name,
+              start: start,
+              end: end,
+              color: "#B1AFFF",
+            };
+          });
           setEvents(newEvents);
-      
         });
       }, []);
+
+
 
       function hourAdder(time) {
         const stringTime = time.toLocaleTimeString('en-GB')
@@ -97,6 +117,7 @@ const CalendarWeek = ({startDate, text}) => {
       title='Add An Event' 
       onPress={() => navigation.navigate("EventForm")}/>
       <TimelineCalendar
+        key={manualEvent.id}
         viewMode="week"
         events={events}
         allowPinchToZoom
