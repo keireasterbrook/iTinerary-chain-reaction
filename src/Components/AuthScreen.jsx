@@ -4,7 +4,7 @@ import {
   TextInput,
   Button,
   StyleSheet,
-  Image
+  Image, SafeAreaView, StatusBar
 } from "react-native";
 import colours from "../styles/colours";
 import { ImageBackground } from "react-native";
@@ -20,6 +20,7 @@ const AuthScreen = ({
 }) => {
   return (
     <View style={styles.container}>
+      <StatusBar translucent backgroundColor="transparent" />
       <ImageBackground
         source={require("../styles/images/homeandlogo.png")}
         style={{

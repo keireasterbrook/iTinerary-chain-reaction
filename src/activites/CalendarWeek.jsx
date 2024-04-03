@@ -115,6 +115,7 @@ const CalendarWeek = ({startDate, text}) => {
     <SafeAreaView style={styles.container}>
       <Button 
       title='Add An Event' 
+      color={'#B1AFFF'}
       onPress={() => navigation.navigate("EventForm")}/>
       <TimelineCalendar
         key={manualEvent.id}
@@ -123,7 +124,29 @@ const CalendarWeek = ({startDate, text}) => {
         allowPinchToZoom
         initialTimeIntervalHeight={60}
         minTimeIntervalHeight={29}
-        maxTimeIntervalHeight={110}/>
+        maxTimeIntervalHeight={110}
+        theme={{
+          //Saturday style
+          saturdayName: { color: '#7f7dff' },
+          saturdayNumber: { color: '#7f7dff' },
+          saturdayNumberContainer: { backgroundColor: 'white' },
+
+          //Sunday style
+          sundayName: { color: '#7f7dff' },
+          sundayNumber: { color: '#7f7dff' },
+          sundayNumberContainer: { backgroundColor: 'white' },
+
+          //Today style
+          todayName: { color: '#7f7dff' },
+          todayNumber: { color: 'white' },
+          todayNumberContainer: { backgroundColor: '#7f7dff' },
+      
+          //Normal style
+          dayName: { color: "#7f7dff" },
+          dayNumber: { color: "#7f7dff" },
+          dayNumberContainer: { backgroundColor: 'white' },
+        }}
+        />
     </SafeAreaView>
   );
 };
@@ -131,5 +154,6 @@ const CalendarWeek = ({startDate, text}) => {
 export default CalendarWeek;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#FFF" },
+  container: { flex: 1, 
+    backgroundColor: "#FFF" },
 });

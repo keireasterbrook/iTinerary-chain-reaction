@@ -12,12 +12,15 @@ import ChatBot from './src/Screens/ChatBot'
 import Home from './src/Screens/Home';
 import ActivitiesList from './src/Screens/ActivitiesList';
 import EventForm from './src/Components/EventForm';
+import { SafeAreaView } from 'react-native';
+import { StatusBar } from 'react-native';
+import { Platform } from 'react-native';
+import colours from './src/styles/colours';
 
 
 const Stack = createNativeStackNavigator();
 
 const app = initializeApp(firebaseConfig);
-
 
 
 export default App = () => {
@@ -65,11 +68,23 @@ export default App = () => {
       };
       // console.log(holidayObj)
 
+      
 
   return (
+    
+     <SafeAreaView style={{ flex: 1, backgroundColor: colours.darkpurple }}>
+  <StatusBar translucent backgroundColor="transparent" />
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home' >
-      <Stack.Screen name='Home' children={(props) => <Home {...props}
+      <Stack.Navigator initialRouteName='Home' screenOptions={{
+          headerStyle: {
+            backgroundColor: 'transparent',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}>
+      <Stack.Screen name='Home'  options={{ title: 'Home' }} children={(props) => <Home {...props}
       user={user} 
       handleAuthentication={handleAuthentication}
       email={email}
@@ -80,19 +95,20 @@ export default App = () => {
       setIsLogin={setIsLogin}
 
       />} />
-      <Stack.Screen name='ChatBot' children={(props) => <ChatBot {...props}
+      <Stack.Screen name='ChatBot'  options={{ title: 'ChatBot' }} children={(props) => <ChatBot {...props}
       setHolidayObj={setHolidayObj}/>}/>
-      <Stack.Screen name='ActivitiesList' children={(props) => <ActivitiesList {...props}
+      <Stack.Screen name='ActivitiesList'  options={{ title: 'Recommendations' }} children={(props) => <ActivitiesList {...props}
       holidayObj={holidayObj}/>}/>
-      <Stack.Screen name='CalendarWeek' children={(props) => <CalendarWeek {...props}
+      <Stack.Screen name='CalendarWeek'  options={{ title: 'My Itinerary' }} children={(props) => <CalendarWeek {...props}
       startDate={startDate}
     text={text}/>}/>
-      <Stack.Screen name='EventForm' children={(props) => <EventForm {...props}
+      <Stack.Screen name='EventForm'  options={{ title: 'New Event' }} children={(props) => <EventForm {...props}
       setStartDate={setStartDate}
     text={text}
     onChangeText={onChangeText}/>}/>
       </Stack.Navigator>
     </NavigationContainer>
+      </SafeAreaView>
 
 
   );
