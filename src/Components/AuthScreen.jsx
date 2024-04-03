@@ -4,7 +4,7 @@ import {
   TextInput,
   Button,
   StyleSheet,
-  opacity,
+  Image
 } from "react-native";
 import colours from "../styles/colours";
 import { ImageBackground } from "react-native";
@@ -21,7 +21,7 @@ const AuthScreen = ({
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../styles/images/plane.jpg")}
+        source={require("../styles/images/homeandlogo.png")}
         style={{
           flex: 1,
           width: "100%",
@@ -30,6 +30,7 @@ const AuthScreen = ({
           alignItems: "center",
         }}
       >
+    
         <View style={styles.authContainer}>
           <Text style={styles.title}>{isLogin ? "Sign In" : "Sign Up"}</Text>
           <TextInput
