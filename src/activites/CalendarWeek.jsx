@@ -15,7 +15,7 @@ import uuid from 'react-native-uuid';
 
 
 
-const CalendarWeek = ({startDate, text}) => {
+const CalendarWeek = ({startDate, text, collectionName}) => {
   const [events, setEvents] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -59,9 +59,9 @@ const CalendarWeek = ({startDate, text}) => {
 
       
       useEffect(() => {
-        dataFetch().then((activities) => {
+        dataFetch(collectionName).then((activities) => {
 
-          const newEvents = activities.slice(0, 4).map((activity) => {
+          const newEvents = activities.slice(0, 7).map((activity) => {
             const { start, end } = generateRandomTimeSlotISO(
               holidayStartDate,
               holidayDuration

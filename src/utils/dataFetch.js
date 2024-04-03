@@ -10,9 +10,10 @@ const db = getFirestore(app)
 
 
 //getting all docs
-const colRef = collection(db, 'selectedActivities')
 
-async function dataFetch() {
+
+async function dataFetch(collectionName) {
+  const colRef = collection(db, `${collectionName}`)
   const activitiesData = []
   const snapshot = await getDocs(colRef);
 
@@ -27,13 +28,13 @@ async function dataFetch() {
 }
 
 
-async function dataPush(data) {
+async function dataPush({collectionName, selectedActivities}) {
   try {
     const docRefs = [];
         // Iterate over each object in the data array
-        for (const activity of data) {
+        for (const activity of selectedActivities) {
             // Add a new document with the current object to the 'selectedActivities' collection
-            const docRef = await addDoc(collection(db, 'selectedActivities'), activity);
+            const docRef = await addDoc(collection(db, `${collectionName}`), activity);
             console.log("Document written with ID: ", docRef.id);
             docRefs.push(docRef); // Store the reference to the added document
         }

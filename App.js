@@ -5,7 +5,7 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, on
 import { getFirestore, doc, getDocs, collection } from "@firebase/firestore"
 import CalendarWeek from './src/activites/CalendarWeek';
 import firebaseConfig from './src/firebase/config'
-import dataFetchAttempt from './src/utils/dataFetch';
+import dataFetchAttempt, { dataFetch } from './src/utils/dataFetch';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ChatBot from './src/Screens/ChatBot'
@@ -33,6 +33,8 @@ export default App = () => {
   const [text, onChangeText] = useState('');
   const auth = getAuth(app);
   
+  const collectionName = holidayObj.destination
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -101,7 +103,8 @@ export default App = () => {
       holidayObj={holidayObj}/>}/>
       <Stack.Screen name='CalendarWeek'  options={{ title: 'My Itinerary' }} children={(props) => <CalendarWeek {...props}
       startDate={startDate}
-    text={text}/>}/>
+    text={text}
+    collectionName={collectionName}/>}/>
       <Stack.Screen name='EventForm'  options={{ title: 'New Event' }} children={(props) => <EventForm {...props}
       setStartDate={setStartDate}
     text={text}
