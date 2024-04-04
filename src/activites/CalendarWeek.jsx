@@ -13,7 +13,6 @@ import { dataFetch }from "../utils/dataFetch";
 import { useNavigation } from "@react-navigation/native";
 import uuid from 'react-native-uuid';
 import { generateRandomTimeSlotISO } from "../utils/generateRandomTime";
-import { hourAdder } from "../utils/hourAdder";
 
 const CalendarWeek = ({startDate, text, collectionName, selectedRange}) => {
   const [events, setEvents] = useState([]);
@@ -26,10 +25,10 @@ const CalendarWeek = ({startDate, text, collectionName, selectedRange}) => {
       useEffect(() => {
         dataFetch(collectionName).then((activities) => {
 
-          const newEvents = activities.slice(0, 7).map((activity) => {
+          const newEvents = activities.map((activity) => {
             const { start, end } = generateRandomTimeSlotISO(
               firstDay,
-              timeDifferenceDays
+              (timeDifferenceDays+1)
             );
             return {
               id: activity.properties.id,
@@ -43,6 +42,20 @@ const CalendarWeek = ({startDate, text, collectionName, selectedRange}) => {
         });
       }, []);
 
+      const hourAdder = (time) => {
+        const stringTime = time.toLocaleTimeString('en-GB')
+        const slicedNum = stringTime.slice(0, 2)
+        let number = Number(slicedNum)
+        if(number === 9){
+          number = 10
+        } else {
+          number += 1
+        }
+        const returnTimeString = time.toISOString()
+        const newTime =  number + stringTime.slice(2)
+        return returnTimeString.slice(0, 11) + newTime + returnTimeString.slice(-5)
+      }
+
 
       const manualEvent = {
         id: uuid.v4(),
@@ -53,7 +66,7 @@ const CalendarWeek = ({startDate, text, collectionName, selectedRange}) => {
       }
 
       useEffect(() => {
-        setEvents([...events, manualEvent]);
+        setEvents(events => [...events, manualEvent]);
       },[startDate])
     
     const navigation = useNavigation()
@@ -66,7 +79,8 @@ const CalendarWeek = ({startDate, text, collectionName, selectedRange}) => {
       onPress={() => navigation.navigate("EventForm")}/>
       <TimelineCalendar
         key={manualEvent.id}
-        viewMode="week"
+        start={8}
+        viewMode="threeDays"
         events={events}
         allowPinchToZoom
         initialTimeIntervalHeight={60}
