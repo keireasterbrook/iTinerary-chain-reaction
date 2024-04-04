@@ -41,10 +41,8 @@ const ActivitiesList = ({ holidayObj }) => {
 		setFoodData(holidayObj.food);
 		setDayData(holidayObj.dayActivity);
 		setNightData(holidayObj.nightActivity);
-		console.log(holidayObj, 'im in the activity lisst!!');
 	}, []);
 	
-	console.log(selectedActivities, "selected activities")
 	const categories = {
 		food: [
 			{
@@ -150,12 +148,6 @@ const ActivitiesList = ({ holidayObj }) => {
 
 		return selectedQuery ? selectedQuery.query : '';
 	};
-	console.log(
-		foodData,
-		dayData,
-		nightData,
-		'the data of all the stuff we need to list '
-	);
 
 	useEffect(() => {
 		if (city && destination) {
@@ -164,31 +156,20 @@ const ActivitiesList = ({ holidayObj }) => {
 					`https://api.api-ninjas.com/v1/geocoding?city=${city}&country=${destination}&X-Api-Key=CewTPFS76SgtxPx22QHKpg==tu5xpSk8ZmNeUMfK`
 				)
 				.then((response) => {
-					console.log(response.data);
-					console.log(city, "<<<<<");
-					console.log(destination);
 					setDestinationDetails(response.data[0]);
 					setLat(response.data[0].latitude);
 					setLong(response.data[0].longitude);
-					console.log(
-						response.data[0].latitude,
-						response.data[0].longitude,
-						'<<<in og data'
-					);
-					console.log(long, lat, '<<<in state data');
 				})
 				.catch((error) => {
 					console.error('Error fetching geocoding data:', error);
 				});
 		}
 	}, [city, destination]);
-	console.log(long, lat, '<<<in state data outside useffect');
 
 	useEffect(() => {
 		setFoodData([]);
 
 		if (long && lat) {
-			console.log('im in the condition!!', location);
 			setLocation(true);
 			food.forEach((restaurant, index) => {
 				searchBoxApi
@@ -199,7 +180,6 @@ const ActivitiesList = ({ holidayObj }) => {
 						)}${searchBox_API_KEY}&proximity=${long},${lat}`
 					)
 					.then((response) => {
-						console.log(response.data.features, '<<<food');
 						setFoodData((prevData) => [
 							...prevData,
 							...response.data.features,
@@ -224,7 +204,6 @@ const ActivitiesList = ({ holidayObj }) => {
 						)}${searchBox_API_KEY}&proximity=${long},${lat}`
 					)
 					.then((response) => {
-						console.log(response.data.features);
 						setDayData((prevData) => [
 							...prevData,
 							...response.data.features,
@@ -249,7 +228,6 @@ const ActivitiesList = ({ holidayObj }) => {
 						)}${searchBox_API_KEY}&proximity=${long},${lat}`
 					)
 					.then((response) => {
-						console.log(response.data.features);
 						setNightData((prevData) => [
 							...prevData,
 							...response.data.features,
