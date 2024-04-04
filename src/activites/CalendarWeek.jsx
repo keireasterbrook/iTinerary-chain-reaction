@@ -26,10 +26,10 @@ const CalendarWeek = ({startDate, text, collectionName, selectedRange}) => {
       useEffect(() => {
         dataFetch(collectionName).then((activities) => {
 
-          const newEvents = activities.slice(0, 7).map((activity) => {
+          const newEvents = activities.map((activity) => {
             const { start, end } = generateRandomTimeSlotISO(
               firstDay,
-              timeDifferenceDays
+              (timeDifferenceDays+1)
             );
             return {
               id: activity.properties.id,
@@ -66,7 +66,8 @@ const CalendarWeek = ({startDate, text, collectionName, selectedRange}) => {
       onPress={() => navigation.navigate("EventForm")}/>
       <TimelineCalendar
         key={manualEvent.id}
-        viewMode="week"
+        start={8}
+        viewMode="threeDays"
         events={events}
         allowPinchToZoom
         initialTimeIntervalHeight={60}

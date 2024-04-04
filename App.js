@@ -110,7 +110,7 @@ export default App = () => {
       setStartDate={setStartDate}
     text={text}
     onChangeText={onChangeText}/>}/>
-    <Stack.Screen name='DisplayDatePicker' option={{title: 'Choose Your Dates'}} children={(props) => <DisplayDatePicker {...props} 
+    <Stack.Screen name='DisplayDatePicker' options={{title: 'Choose Your Dates'}} children={(props) => <DisplayDatePicker {...props} 
     setStartDate={setStartDate} 
     selectedRange={selectedRange}
     setSelectedRange={setSelectedRange}/> 
