@@ -77,10 +77,6 @@ const CalendarWeek = ({startDate, text, collectionName, selectedRange}) => {
       <TouchableOpacity style={styles.button}  onPress={() => navigation.navigate("EventForm")}>
           <Text style={styles.buttontext}>Add an event</Text>
         </TouchableOpacity>
-      {/* <Button 
-      title='Add An Event' 
-      color={colours.darkpurple} 
-      onPress={() => navigation.navigate("EventForm")}/> */}
       <TimelineCalendar
         key={manualEvent.id}
         start={8}

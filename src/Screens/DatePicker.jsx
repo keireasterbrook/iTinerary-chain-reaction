@@ -34,10 +34,6 @@ const DisplayDatePicker = ({setSelectedRange, selectedRange}) => {
           selectedDateStyle={styles.selectedDateStyle}
           onConfirm={() => navigation.navigate("ChatBot")}
         />
-        {/* <View style={styles.container}>
-          <Text>first date: {selectedRange.firstDate}</Text>
-          <Text>second date: {selectedRange.secondDate}</Text>
-        </View> */}
       </View>
     </SafeAreaView>
   );
