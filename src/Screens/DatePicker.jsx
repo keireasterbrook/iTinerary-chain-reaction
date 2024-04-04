@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, View, Text } from "react-native";
 import DateRangePicker from "rn-select-date-range";
 import { useNavigation } from "@react-navigation/native";
+import colours from "../styles/colours";
 
 const DisplayDatePicker = ({setSelectedRange, selectedRange}) => {
   
@@ -14,11 +15,12 @@ const DisplayDatePicker = ({setSelectedRange, selectedRange}) => {
         <Text 
         style={{ 
           textAlign: 'center',
-          backgroundColor: "#9F9DE5",
+          backgroundColor: colours.darkpurple,
           borderRadius: 7,
+
           marginBottom: 15,
           padding: 7,
-          color: 'black', 
+          color: 'white', 
           fontSize: 35, 
           fontWeight: "bold" }}>When is your trip?</Text>
         <DateRangePicker
@@ -32,10 +34,6 @@ const DisplayDatePicker = ({setSelectedRange, selectedRange}) => {
           selectedDateStyle={styles.selectedDateStyle}
           onConfirm={() => navigation.navigate("ChatBot")}
         />
-        {/* <View style={styles.container}>
-          <Text>first date: {selectedRange.firstDate}</Text>
-          <Text>second date: {selectedRange.secondDate}</Text>
-        </View> */}
       </View>
     </SafeAreaView>
   );
@@ -50,7 +48,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#C0BFFF",
+    backgroundColor: colours.lightpurple,
   },
   selectedDateStyle: {
     fontWeight: "bold",

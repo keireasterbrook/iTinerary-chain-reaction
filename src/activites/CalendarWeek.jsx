@@ -13,6 +13,7 @@ import { dataFetch }from "../utils/dataFetch";
 import { useNavigation } from "@react-navigation/native";
 import uuid from 'react-native-uuid';
 import { generateRandomTimeSlotISO } from "../utils/generateRandomTime";
+import colours from "../styles/colours";
 
 const CalendarWeek = ({startDate, text, collectionName, selectedRange}) => {
   const [events, setEvents] = useState([]);
@@ -35,7 +36,7 @@ const CalendarWeek = ({startDate, text, collectionName, selectedRange}) => {
               title: activity.properties.name,
               start: start,
               end: end,
-              color: "#B1AFFF",
+              color: colours.lightpurple,
             };
           });
           setEvents(newEvents);
@@ -62,7 +63,7 @@ const CalendarWeek = ({startDate, text, collectionName, selectedRange}) => {
         title: text,
         start: startDate,
         end: startDate ? hourAdder(startDate) : '',
-        color: "#B1AFFF"
+        color: colours.lightpurple
       }
 
       useEffect(() => {
@@ -73,10 +74,9 @@ const CalendarWeek = ({startDate, text, collectionName, selectedRange}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Button 
-      title='Add An Event' 
-      color={'#B1AFFF'}
-      onPress={() => navigation.navigate("EventForm")}/>
+      <TouchableOpacity style={styles.button}  onPress={() => navigation.navigate("EventForm")}>
+          <Text style={styles.buttontext}>Add an event</Text>
+        </TouchableOpacity>
       <TimelineCalendar
         key={manualEvent.id}
         start={8}
@@ -88,23 +88,23 @@ const CalendarWeek = ({startDate, text, collectionName, selectedRange}) => {
         maxTimeIntervalHeight={110}
         theme={{
           //Saturday style
-          saturdayName: { color: '#7f7dff' },
-          saturdayNumber: { color: '#7f7dff' },
+          saturdayName: { color: colours.darkpurple },
+          saturdayNumber: { color: colours.darkpurple },
           saturdayNumberContainer: { backgroundColor: 'white' },
 
           //Sunday style
-          sundayName: { color: '#7f7dff' },
-          sundayNumber: { color: '#7f7dff' },
+          sundayName: { color: colours.darkpurple },
+          sundayNumber: { color: colours.darkpurple },
           sundayNumberContainer: { backgroundColor: 'white' },
 
           //Today style
-          todayName: { color: '#7f7dff' },
+          todayName: { color: colours.darkpurple },
           todayNumber: { color: 'white' },
-          todayNumberContainer: { backgroundColor: '#7f7dff' },
+          todayNumberContainer: { backgroundColor: colours.darkpurple },
       
           //Normal style
-          dayName: { color: "#7f7dff" },
-          dayNumber: { color: "#7f7dff" },
+          dayName: { color: colours.darkpurple },
+          dayNumber: { color: colours.darkpurple },
           dayNumberContainer: { backgroundColor: 'white' },
         }}
         />
@@ -117,4 +117,18 @@ export default CalendarWeek;
 const styles = StyleSheet.create({
   container: { flex: 1, 
     backgroundColor: "#FFF" },
+    button: {
+      backgroundColor: colours.lightpurple,
+      padding: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+
+    },
+    buttontext: {
+      fontSize: 20,
+      color: 'white',
+      fontWeight: 'bold'
+      
+
+    }
 });

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet, Button, Text } from 'react-native';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import { useNavigation } from '@react-navigation/native';
 import colours from "../styles/colours";
 import QuickReplies from 'react-native-gifted-chat/lib/QuickReplies';
+import { TouchableOpacity } from 'react-native';
 
 
 function ChatBot({ setHolidayObj }) {
@@ -225,11 +226,10 @@ function ChatBot({ setHolidayObj }) {
         renderQuickReply={renderQuickReply} 
       />
       {questionCounter > 4 ? (
-        <Button
-          title="Show me my recommendations"
-          onPress={() => navigation.navigate('ActivitiesList')}
-          style={styles.button} 
-        />
+        <TouchableOpacity style={styles.button}  onPress={() => navigation.navigate('ActivitiesList')}>
+        <Text style={styles.buttontext}>Show me my recommendations!</Text>
+      </TouchableOpacity>
+  
       ) : null}
     </View>
   );
@@ -244,6 +244,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colours.lightpurple,
     opacity: 0.8
+
+  },
+  buttontext: {
+    fontSize: 20,
+    color: 'black',
+    fontWeight: 'bold'
+    
+
   }
 });
 
