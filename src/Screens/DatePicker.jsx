@@ -11,7 +11,16 @@ const DisplayDatePicker = ({setSelectedRange, selectedRange}) => {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <Text>When is your trip?</Text>
+        <Text 
+        style={{ 
+          textAlign: 'center',
+          backgroundColor: "#9F9DE5",
+          borderRadius: 7,
+          marginBottom: 15,
+          padding: 7,
+          color: 'black', 
+          fontSize: 35, 
+          fontWeight: "bold" }}>When is your trip?</Text>
         <DateRangePicker
           onSelectDateRange={(range) => {
             setSelectedRange(range);
@@ -23,10 +32,10 @@ const DisplayDatePicker = ({setSelectedRange, selectedRange}) => {
           selectedDateStyle={styles.selectedDateStyle}
           onConfirm={() => navigation.navigate("ChatBot")}
         />
-        <View style={styles.container}>
+        {/* <View style={styles.container}>
           <Text>first date: {selectedRange.firstDate}</Text>
           <Text>second date: {selectedRange.secondDate}</Text>
-        </View>
+        </View> */}
       </View>
     </SafeAreaView>
   );
@@ -41,7 +50,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "blue",
+    backgroundColor: "#C0BFFF",
   },
   selectedDateStyle: {
     fontWeight: "bold",
