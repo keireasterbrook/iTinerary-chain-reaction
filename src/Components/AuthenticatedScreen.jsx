@@ -48,13 +48,15 @@ const AuthenticatedScreen = ({ user, handleAuthentication }) => {
           </TouchableOpacity>
         </View>
 
+<View style={style.logoutbtn}>
         <TouchableOpacity activeOpacity={0.8} onPress={handleAuthentication}>
           <Button
             title="Log out"
             onPress={handleAuthentication}
-            color="black"
+            color="white"
           />
         </TouchableOpacity>
+        </View>
       </ImageBackground>
     </View>
   );
@@ -78,8 +80,12 @@ const style = StyleSheet.create({
   },
   logoutbtn: {
     borderRadius: 7,
-    justifyContent: "center",
-    alignItems: "center",
+    position: 'absolute',
+    bottom: 10,
+    left:0,
+right:0,
+marginLeft:'auto',
+marginRight:'auto',
   },
 });
 
