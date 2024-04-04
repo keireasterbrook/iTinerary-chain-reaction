@@ -108,6 +108,7 @@ export default App = () => {
     />}/>
       <Stack.Screen name='EventForm'  options={{ title: 'New Event' }} children={(props) => <EventForm {...props}
       setStartDate={setStartDate}
+      startDate={startDate}
     text={text}
     onChangeText={onChangeText}/>}/>
     <Stack.Screen name='DisplayDatePicker' option={{title: 'Choose Your Dates'}} children={(props) => <DisplayDatePicker {...props} 
