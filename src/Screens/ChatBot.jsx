@@ -106,7 +106,7 @@ function ChatBot({ setHolidayObj }) {
       setNightActivity(options);
       setQuestionCounter(5);
       handleResponse(
-        `Thank you! Your selections are:\nDestination: ${destination}\nCity: ${city}\nHoliday Length: ${holidayLength}\nFood: ${food.join(
+        `Thank you! Your selections are:\nDestination: ${destination}\nCity: ${city}\nFood: ${food.join(
           ', '
         )}\nDay Activities: ${dayActivity.join(
           ', '
@@ -146,7 +146,7 @@ function ChatBot({ setHolidayObj }) {
       setCity(response);
       setQuestionCounter(2);
       handleResponse(
-        `You selected: ${response} days. What type of food options would you like to have in ${city}? Here are the options: ${categories.food.join(
+        `You selected: ${response}. What type of food options would you like to have in ${city}? Here are the options: ${categories.food.join(
           ', '
         )}.`
       );
@@ -154,7 +154,7 @@ function ChatBot({ setHolidayObj }) {
       setHolidayLength(response);
       setQuestionCounter(3);
       handleResponse(
-        `You selected: ${response} days. What type of food options would you like to have in ${city}? Here are the options: ${categories.food.join(
+        `You selected: ${response}. What type of food options would you like to have in ${city}? Here are the options: ${categories.food.join(
           ', '
         )}.`
       );
