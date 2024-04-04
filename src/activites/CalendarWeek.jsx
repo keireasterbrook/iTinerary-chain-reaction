@@ -63,7 +63,7 @@ const CalendarWeek = ({startDate, text, collectionName, selectedRange}) => {
         title: text,
         start: startDate,
         end: startDate ? hourAdder(startDate) : '',
-        color: "#B1AFFF"
+        color: colours.lightpurple
       }
 
       useEffect(() => {
