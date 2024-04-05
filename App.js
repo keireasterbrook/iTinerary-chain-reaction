@@ -4,7 +4,7 @@ import { initializeApp } from '@firebase/app';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from '@firebase/auth';
 import { getFirestore, doc, getDocs, collection } from "@firebase/firestore"
 import CalendarWeek from './src/activites/CalendarWeek';
-import firebaseConfig from './src/firebase/config'
+import firebaseConfig from './src/firebase/firebaseConfig'
 import dataFetchAttempt, { dataFetch } from './src/utils/dataFetch';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';

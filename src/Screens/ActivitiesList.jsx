@@ -7,13 +7,10 @@ import ActivityCard from "../Components/ActivityCard";
 import { dataPush, dataFetch } from "../utils/dataFetch";
 import colours from "../styles/colours";
 import { ActivityIndicator } from "react-native";
+import { searchBox_API_KEY } from "../../searchBoxKey";
 
-//https://api.mapbox.com/search/searchbox/v1/category/coffee?access_token=sk.eyJ1IjoiY[…]2C38.41262975705166%2C-120.52250410696067%2C39.54169087094499
-//https://api.mapbox.com/search/searchbox/v1/suggest?q=Michigan%20Stadium?language=en&limit=1&session_token=%5BGENERATED-UUID%5D&proximity=-83.748708,42.265837&country=US&access_token=YOUR_MAPBOX_ACCESS_TOKEN
+// const searchBox_API_KEY = 'yourKeyHere'
 
-//https://api.mapbox.com/search/searchbox/v1/category/coffee?access_token=sk.eyJ1IjoiYWh1c3M5OCIsImEiOiJjbHU2d3oyaGIyNjVrMmlzM3Q1d3ZkMDAyIn0.Z8t1arJJokTQXfGF0-KJzw&language=en&limit=5&proximity=-3.7035825,40.4167047
-const searchBox_API_KEY =
-	'?access_token=sk.eyJ1IjoiYWh1c3M5OCIsImEiOiJjbHU2d3oyaGIyNjVrMmlzM3Q1d3ZkMDAyIn0.Z8t1arJJokTQXfGF0-KJzw&language=en&limit=5';
 
 const searchBoxApi = axios.create({
 	baseURL: 'https://api.mapbox.com/search/searchbox/v1/',
