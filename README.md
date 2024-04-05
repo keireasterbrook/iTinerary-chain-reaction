@@ -3,9 +3,13 @@ iTinerary
 A travel planning app brought to you by the Chain Reaction project group.
 
 Ahmed Hussain (https://github.com/Ahuss98 / https://www.linkedin.com/in/ahmed-hussain-122b33271/)
+
 Alice Wilson (https://github.com/alicewilson17)
+
 Jaswinder Bhogal (https://github.com/JazzyCoding96)
+
 Keir Easterbrook (https://github.com/keireasterbrook / https://www.linkedin.com/in/keir-easterbrook-00ba84211/)
+
 Megan Clayton-Clarke (https://github.com/megclaycla)
 
 Planning a holiday can be stressful, and with so many options of tours, activities and restaurants, sometimes it can be hard to plan which activities you’d like to do on each day of your trip.
