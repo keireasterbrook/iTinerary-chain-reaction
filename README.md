@@ -6,7 +6,7 @@ Ahmed Hussain (https://github.com/Ahuss98 / https://www.linkedin.com/in/ahmed-hu
 
 Alice Wilson (https://github.com/alicewilson17)
 
-Jaswinder Bhogal (https://github.com/JazzyCoding96)
+Jaswinder Bhogal (https://github.com/JazzyCoding96 / https://www.linkedin.com/in/jaswinderbhogal/)
 
 Keir Easterbrook (https://github.com/keireasterbrook / https://www.linkedin.com/in/keir-easterbrook-00ba84211/)
 
