@@ -16,7 +16,7 @@ Planning a holiday can be stressful, and with so many options of tours, activiti
 
 This is where iTinerary comes in. iTinerary is your own personal travel agent that aims to take the hassle out of holiday planning. It uses a smart TravelBot which creates a customised list of recommendations for things to do and places to eat at your holiday destination, based on your personal preferences. You can then browse through this list and select the activities that you’re interested in, and iTinerary will create a bespoke schedule for you. That way, you can spend less time researching and planning your holiday, and more time getting excited for the trip of a lifetime!
 
-The project is a part of Northcoders Software Development Bootcamp, and is our final project phase assignment, we were given a lot of freedom to explore new technologies and build an app in a way we felt necessary, and challenging!
+The project is a part of Northcoders Software Development Bootcamp, and is our final project phase assignment, we were given a lot of freedom to explore new technologies and build an app in a way we felt necessary, and challenging! You can see our demonstration video on the Northcoders site here - https://northcoders.com/project-phase/itinerary
 
 This project uses these technologies -
 React Native, 
