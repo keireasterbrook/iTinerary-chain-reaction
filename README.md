@@ -4,7 +4,7 @@ A travel planning app brought to you by the Chain Reaction project group.
 
 Ahmed Hussain (https://github.com/Ahuss98 / https://www.linkedin.com/in/ahmed-hussain-122b33271/)
 
-Alice Wilson (https://github.com/alicewilson17)
+Alice Wilson (https://github.com/alicewilson17 / https://www.linkedin.com/in/alice-wilson-156865170/) 
 
 Jaswinder Bhogal (https://github.com/JazzyCoding96 / https://www.linkedin.com/in/jaswinderbhogal/)
 
